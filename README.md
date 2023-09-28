@@ -1,3 +1,3 @@
 # README
 
-A Simple Chat App built with Hotwire
+A Simple Chat App built with Hotwire :fire:
