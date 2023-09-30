@@ -1,2 +1,24 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
+<section id="content" class="m-t-lg wrapper-md animated fadeInDown">
+    <div class="container aside-xl">
+        <a class="navbar-brand block">WeConekt</a>
+        <section class="m-b-lg">
+            <header class="wrapper text-center">
+                <strong>Login to stay connected with people</strong>
+            </header>
+            <%= form_with url: login_url do |form| %>
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <%= form.text_field :email, placeholder: 'Email', class: 'form-control no-border' %>
+                    </div>
+                    <div class="list-group-item">
+                        <%= form.text_field :password, placeholder: 'Password', class: 'form-control no-border' %>
+                    </div>
+                </div>
+                <%= form.submit 'Log In', class: 'btn btn-lg btn-primary btn-block' %>
+                <p class="text-center"><small>Don't have an account?</small></p>
+                <%= link_to 'Create An Account', new_user_url, class: 'btn btn-lg btn-default btn-block' %>
+            <% end %>
+        </section>
+    </div>
+</section>            
+

@@ -11,6 +11,25 @@
   </head>
 
   <body>
-    <%= yield %>
+     <div class='container'>
+       <% flash.each do |message_type, message| %>
+         <div class="alert alert-<%= message_type %>"><%= message %></div>
+       <% end %>
+       <br>
+       <br>
+       <%= yield %>
+      </div>   
   </body>
+
+
+<!-- footer -->
+<footer id="footer">
+    <div class="text-center padder clearfix">
+        <p>
+            <small>Powered by Hotwire<br>&copy; 2023</small>
+        </p>
+    </div>
+</footer>
+<!-- / footer -->
 </html>
+

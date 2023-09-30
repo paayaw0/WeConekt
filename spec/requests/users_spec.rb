@@ -55,7 +55,7 @@ RSpec.describe 'Users', type: :request do
       it 'displays error flash message' do
         post '/signup', params: invalid_params
 
-        expect(flash[:error]).to eq('Invalid Email/Password')
+        expect(flash[:error]).to eq('Failed to create your profile. Please check and resolve the errors')
       end
 
       it 'renders new template' do
@@ -78,7 +78,7 @@ RSpec.describe 'Users', type: :request do
     let(:valid_params) { { user: { email: 'paayaw.dev@gmail.com', password: user_password } } }
 
     before do
-      post '/sessions', params: valid_params
+      post '/login', params: valid_params[:user]
       get "/users/#{existing_user.id}"
     end
 
@@ -101,7 +101,7 @@ RSpec.describe 'Users', type: :request do
     let(:valid_params) { { user: { email: 'paayaw.dev@gmail.com', password: user_password } } }
 
     before do
-      post '/sessions', params: valid_params
+      post '/login', params: valid_params[:user]
       get "/users/#{existing_user.id}/edit"
     end
 
@@ -124,7 +124,7 @@ RSpec.describe 'Users', type: :request do
     let(:valid_params) { { user: { email: 'paayaw.dev@gmail.com', password: user_password } } }
 
     context 'when current user exists' do
-      before { post '/sessions', params: valid_params }
+      before { post '/login', params: valid_params[:user] }
 
       context 'successfully updated' do
         before { patch "/users/#{existing_user.id}", params: valid_params }

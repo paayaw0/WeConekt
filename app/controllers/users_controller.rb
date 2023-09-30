@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update]
 
-  def new; end
+  def new
+    @user = User.new
+  end
 
   def create
     @user = User.new(user_params)
@@ -12,7 +14,7 @@ class UsersController < ApplicationController
       flash[:success] = "Hello #{@user.name || @user.username} and welcome to WeConekt"
       redirect_to root_path
     else
-      flash.now[:error] = 'Invalid Email/Password'
+      flash.now[:error] = 'Failed to create your profile. Please check and resolve the errors'
       render :new, status: :unprocessable_entity
     end
   end
