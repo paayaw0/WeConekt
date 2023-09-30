@@ -5,7 +5,7 @@
             <header class="wrapper text-center">
                 <strong>Login to stay connected with people</strong>
             </header>
-            <%= form_with url: login_url do |form| %>
+            <%= form_with url: sessions_url do |form| %>
                 <div class="list-group">
                     <div class="list-group-item">
                         <%= form.text_field :email, placeholder: 'Email', class: 'form-control no-border' %>
@@ -16,7 +16,7 @@
                 </div>
                 <%= form.submit 'Log In', class: 'btn btn-lg btn-primary btn-block' %>
                 <p class="text-center"><small>Don't have an account?</small></p>
-                <%= link_to 'Create An Account', new_user_url, class: 'btn btn-lg btn-default btn-block' %>
+                <%= link_to 'Create An Account', signup_url, class: 'btn btn-lg btn-default btn-block' %>
             <% end %>
         </section>
     </div>

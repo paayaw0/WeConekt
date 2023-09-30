@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       login_user(@user)
 
       flash[:success] = "Hello #{@user.name || @user.username} and welcome to WeConekt"
-      redirect_to root_path
+      redirect_to @user
     else
       flash.now[:error] = 'Failed to create your profile. Please check and resolve the errors'
       render :new, status: :unprocessable_entity
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       flash[:success] = 'You successful updated your profile'
-      redirect_to root_path
+      redirect_to @user
     else
       flash.now[:error] = 'Profile update failed'
       render :edit, status: :unprocessable_entity

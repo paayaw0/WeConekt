@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
   describe 'GET #new' do
-    before { get '/users/new' }
+    before { get '/signup' }
 
     it 'renders new template for sign up' do
       expect(response).to render_template(:new)
@@ -19,25 +19,26 @@ RSpec.describe 'Users', type: :request do
 
       it 'creates user on sign up' do
         expect do
-          post '/signup', params: valid_params
+          post '/users', params: valid_params
         end.to change(User, :count).by(1)
       end
 
       it 'displays success flash message' do
-        post '/signup', params: valid_params
+        post '/users', params: valid_params
 
         user = assigns[:user]
         expect(flash[:success]).to eq("Hello #{user.name || user.username} and welcome to WeConekt")
       end
 
       it 'redirects to root path' do
-        post '/signup', params: valid_params
+        post '/users', params: valid_params
 
-        expect(response).to redirect_to root_path
+        user = assigns[:user]
+        expect(response).to redirect_to user_path(user)
       end
 
       it 'has a redirect status code of 302' do
-        post '/signup', params: valid_params
+        post '/users', params: valid_params
 
         expect(response).to have_http_status(302)
       end
@@ -48,24 +49,24 @@ RSpec.describe 'Users', type: :request do
 
       it 'fails to create a user' do
         expect do
-          post '/signup', params: invalid_params
+          post '/users', params: invalid_params
         end.to change(User, :count).by(0)
       end
 
       it 'displays error flash message' do
-        post '/signup', params: invalid_params
+        post '/users', params: invalid_params
 
         expect(flash[:error]).to eq('Failed to create your profile. Please check and resolve the errors')
       end
 
       it 'renders new template' do
-        post '/signup', params: invalid_params
+        post '/users', params: invalid_params
 
         expect(response).to render_template(:new)
       end
 
       it 'has status code of 422' do
-        post '/signup', params: invalid_params
+        post '/users', params: invalid_params
 
         expect(response).to have_http_status(422)
       end
@@ -78,7 +79,7 @@ RSpec.describe 'Users', type: :request do
     let(:valid_params) { { user: { email: 'paayaw.dev@gmail.com', password: user_password } } }
 
     before do
-      post '/login', params: valid_params[:user]
+      post '/sessions', params: valid_params[:user]
       get "/users/#{existing_user.id}"
     end
 
@@ -101,7 +102,7 @@ RSpec.describe 'Users', type: :request do
     let(:valid_params) { { user: { email: 'paayaw.dev@gmail.com', password: user_password } } }
 
     before do
-      post '/login', params: valid_params[:user]
+      post '/sessions', params: valid_params[:user]
       get "/users/#{existing_user.id}/edit"
     end
 
@@ -124,13 +125,13 @@ RSpec.describe 'Users', type: :request do
     let(:valid_params) { { user: { email: 'paayaw.dev@gmail.com', password: user_password } } }
 
     context 'when current user exists' do
-      before { post '/login', params: valid_params[:user] }
+      before { post '/sessions', params: valid_params[:user] }
 
       context 'successfully updated' do
         before { patch "/users/#{existing_user.id}", params: valid_params }
 
         it 'redirects to root path' do
-          expect(response).to redirect_to root_path
+          expect(response).to redirect_to existing_user
         end
 
         it 'displays successful flash message' do
@@ -168,11 +169,11 @@ RSpec.describe 'Users', type: :request do
         before { patch "/users/#{existing_user.id}", params: invalid_params }
 
         it 'displays error flash message' do
-          expect(flash[:notice]).to eq('You must be signed in first')
+          expect(flash[:error]).to eq('You must be signed in first')
         end
 
         it 'redirects to sign up page' do
-          expect(response).to redirect_to new_user_path
+          expect(response).to redirect_to login_path
         end
 
         it 'has status code of 302' do

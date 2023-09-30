@@ -3,12 +3,13 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: login_params[:email])
+    # debugger
 
     if user&.authenticate_password(login_params[:password])
       login_user(user)
 
       flash[:success] = "Welcome Back, #{user.name || user.username}"
-      redirect_to root_path
+      redirect_to user_path(user)
     else
       flash.now[:error] = 'Invalid email/password'
       render :new, status: 401
@@ -18,7 +19,7 @@ class SessionsController < ApplicationController
   def destroy
     log_out
 
-    flash[:notice] = "You've successfully logged out"
+    flash[:success] = "You've successfully logged out"
     redirect_to login_path
   end
 

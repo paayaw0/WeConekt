@@ -1,2 +1,67 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+        <%= link_to 'logout', logout_path, 
+                    data: { 
+                        confirm: 'Are you sure?', 
+                        turbo_method: :delete 
+                        },
+                        class: 'btn btn-s-md btn-dark btn-rounded' %>
+        <br>
+        <br>
+        <section class="vbox">
+            <section>
+                <section class="hbox stretch">
+                    <section id="content">
+                        <section class="vbox">
+                            <section class="scrollable">
+                                <section class="hbox stretch">
+                                    <aside class="aside-lg bg-light lter b-r">
+                                        <section class="vbox">
+                                            <section class="scrollable">
+                                                <div class="wrapper">
+                                                    <section class="panel no-border bg-primary lt">
+                                                        <div class="panel-body">
+                                                            <div class="row m-t-xl">                                                               
+                                                                <div class="text-center">
+                                                                    <div class="inline">
+                                                                        <div
+                                                                            class="easypiechart"
+                                                                            data-percent="75"
+                                                                            data-line-width="6"
+                                                                            data-bar-color="#fff"
+                                                                            data-track-Color="#2796de"
+                                                                            data-scale-Color="false"
+                                                                            data-size="140"
+                                                                            data-line-cap="butt"
+                                                                            data-animate="1000"
+                                                                        >
+                                                                            <div class="thumb-lg avatar"><img src="<%= image_url('profile_photo.png') %>" class="dker" /></div>
+                                                                        </div>
+                                                                        <div class="h4 m-t m-b-xs font-bold text-lt"><%= current_user.name || current_user.username %></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <footer class="panel-footer dk text-center no-border">
+                                                            <div class="row pull-out">
+                                                                <div class="col-xs-4">
+                                                                    <div class="padder-v"><span class="m-b-xs h3 block text-white">245</span> <small class="text-muted">Chats</small></div>
+                                                                </div>
+                                                                <div class="col-xs-4 dker">
+                                                                    <div class="padder-v"><span class="m-b-xs h3 block text-white">55</span> <small class="text-muted">Communities</small></div>
+                                                                </div>
+                                                                <div class="col-xs-4">
+                                                                    <div class="padder-v"><span class="m-b-xs h3 block text-white">2,035</span> <small class="text-muted">Connections</small></div>
+                                                                </div>
+                                                            </div>
+                                                        </footer>
+                                                    </section>
+                                                </div>
+                                            </section>
+                                        </section>
+                                    </aside>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
