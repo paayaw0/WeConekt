@@ -1,0 +1,26 @@
+<h4 class="alert alert-success"
+    style="text-align: center;
+           margin-left: 20%;
+           margin-right: 20%">
+<%= message %>
+<% if show && true %>
+<%= button_to 'Accept', accept_ping_url, params: {
+        target_user_id: pinger.id,
+        pinger_id: target_user.id
+      },
+      data: {
+        controller: 'hello',
+        action: 'hello#removeElement'
+      },
+       class: 'btn btn-s-md btn-success btn-rounded' %>
+<%= button_to 'Decline', decline_ping_url, params: {
+        target_user_id: pinger.id,
+        pinger_id: target_user.id
+      },
+      data: {
+        controller: 'hello',
+        action: 'hello#removeElement'
+      },
+       class: 'btn btn-s-md btn-danger btn-rounded' %>
+<% end %>
+</h4>

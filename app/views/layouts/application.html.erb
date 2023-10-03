@@ -11,6 +11,21 @@
   </head>
 
   <body>
+    <%= link_to 'logout', logout_path, 
+                    data: { 
+                        confirm: 'Are you sure?', 
+                        turbo_method: :delete 
+                        },
+                        class: 'pull-right btn btn-s-md btn-dark btn-rounded' if current_user %>
+        <br>
+        <br>
+    <% if current_user %>
+      <%= turbo_stream_from [:ping, current_user.id] %>
+      <%= turbo_frame_tag [:ping, current_user.id] %>
+    <% end %>
+
+    <%#= render 'shared/notification', target_user: User.first, pinger: User.last, message: 'ok', show: true %>
+      
      <div class='container'>
        <% flash.each do |message_type, message| %>
          <div class="alert alert-<%= message_type %>"><%= message %></div>

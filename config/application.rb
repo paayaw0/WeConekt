@@ -18,5 +18,7 @@ module Weconekt
     #
     # config.time_zone = "Central Time (US & Canada)"
     config.eager_load_paths << Rails.root.join("lib/validators")
+    # necessary to render links inside turbo streams with appropriate hosts
+    config.action_controller.default_url_options = { host: 'localhost', port: 3000 }
   end
 end

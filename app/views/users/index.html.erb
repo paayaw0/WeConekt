@@ -1,0 +1,29 @@
+<h4><%= link_to current_user&.username, current_user %>, here are some users to connect with...</h4>
+<section class="vbox">
+    <section>
+        <section class="hbox stretch">
+            <section id="content">
+                <section class="vbox">
+                    <section class="scrollable bg-white">
+                        <div class="tab-content">
+                        <% @users.each do |user| %>
+                          <% next if user == current_user %>
+                            <ul class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border">
+                                <li class="list-group-item">
+                                    <a class="thumb-sm pull-left m-r-sm"> <img src="<%= image_url('profile_photo.png') %>" class="img-circle" /> </a>
+                                    <a class="clear">
+                                        <small class="pull-right"><%= time_ago_in_words(user&.last_logged_in_at) if user&.last_logged_in_at %> ago</small> <strong class="block"><%= user&.name || user&.username %> <%= button_to 'ping', ping_user_url, params: { 
+                                                                                                                                                                                                                                                                    target_user_id: user.id,
+                                                                                                                                                                                                                                                                    pinger_id: current_user.id
+                                                                                                                                                                                                                                                                  }, class: 'btn btn-s-sm btn-dark btn-rounded' %></strong>
+                                    </a>
+                                </li>
+                            </ul>
+                        <% end %>    
+                        </div>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>

@@ -3,13 +3,12 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: login_params[:email])
-    # debugger
 
     if user&.authenticate_password(login_params[:password])
       login_user(user)
 
-      flash[:success] = "Welcome Back, #{user.name || user.username}"
-      redirect_to user_path(user)
+      flash[:success] = "Welcome Back, #{user.name || user.username}"       
+      redirect_to users_path
     else
       flash.now[:error] = 'Invalid email/password'
       render :new, status: 401

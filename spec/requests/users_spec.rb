@@ -131,7 +131,7 @@ RSpec.describe 'Users', type: :request do
         before { patch "/users/#{existing_user.id}", params: valid_params }
 
         it 'redirects to root path' do
-          expect(response).to redirect_to existing_user
+          expect(response).to redirect_to user_path(existing_user)
         end
 
         it 'displays successful flash message' do

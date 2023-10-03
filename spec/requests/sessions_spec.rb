@@ -37,7 +37,7 @@ RSpec.describe 'Sessions', type: :request do
       it 'expect response to redirect to root_path' do
         post '/sessions', params: valid_params
 
-        expect(response).to redirect_to user_path(existing_user)
+        expect(response).to redirect_to users_path
       end
     end
 
@@ -77,7 +77,7 @@ RSpec.describe 'Sessions', type: :request do
       it 'log out' do
         delete '/logout'
 
-        expect(flash[:notice]).to eq("You've successfully logged out")
+        expect(flash[:success]).to eq("You've successfully logged out")
       end
 
       it 'redirects to log in path' do
