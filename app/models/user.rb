@@ -13,4 +13,8 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }
   validates :password, strong_password: true
+
+  has_many :connections
+  has_many :messages, through: :connections
+  has_many :rooms, through: :connections
 end

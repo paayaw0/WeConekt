@@ -35,7 +35,11 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'associations'
+  describe 'associations' do
+    it { should have_many(:connections) }
+    it { should have_many(:messages).through(:connections) }
+    it { should have_many(:rooms).through(:connections) }
+  end
   describe 'callbacks' do
     context 'before_save callbacks' do
       it 'downcase email' do
