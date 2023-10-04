@@ -1,0 +1,15 @@
+<div>
+  <p class="pull-left"><%= message&.user&.username %></p>
+</div>  
+<br>
+<br>
+<article class="chat-item left">
+    <section class="chat-body new-body-<%= message&.user&.id %>">
+        <div class="panel b-light text-sm m-b-none msg-<%= message&.user&.id %>">
+            <div class="panel-body">
+                <p class="m-b-none"><%= message.text %></p>
+            </div>
+        </div>
+        <small class="text-muted"><i class="fa fa-ok text-success"></i><%= time_ago_in_words(message.created_at) %></small>
+    </section>
+</article>

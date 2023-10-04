@@ -9,7 +9,17 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
+  <style>
+    <%= ".msg-#{current_user&.id}" %> {
+      background-color: #007bff !important;
+      color: #fff;
+    }
 
+    <%= ".new-body-#{current_user&.id}" %> {
+      margin-right: 45px !important;
+      margin-left: 0 !important;
+    }
+</style>
   <body>
     <%= link_to 'logout', logout_path, 
                     data: { 
@@ -24,7 +34,6 @@
       <%= turbo_frame_tag [:ping, current_user.id] %>
     <% end %>
 
-    <%#= render 'shared/notification', target_user: User.first, pinger: User.last, message: 'ok', show: true %>
       
      <div class='container'>
        <% flash.each do |message_type, message| %>

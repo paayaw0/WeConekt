@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
-  resources :users, except: [:new]
-  resources :sessions, only: [:create]
+  resources :users, except: [:new] do 
+    resources :messages
+  end
 
+  resources :sessions, only: [:create]
+  resources :rooms
+
+  post '/join_room', to: 'rooms#join'
   post '/ping', to: 'pings#ping_user', as: :ping_user
   post '/decline_ping', to: 'pings#decline'
   post '/accept_ping', to: 'pings#accept'

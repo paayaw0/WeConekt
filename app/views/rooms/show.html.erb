@@ -1,0 +1,77 @@
+        <section class="vbox">
+            <section>
+                <section class="hbox stretch">
+                    <section id="content">
+                        <section class="hbox stretch">
+                            <section>
+                                <section class="vbox">
+                                    <header class="header bg-light lt b-b b-light">
+                                        <%= link_to 'Profile', user_path(current_user), class: 'btn btn-sm btn-default pull-right btn-rounded' %>
+                                        <p>Room Name: <strong><%= @room.name %></strong></p>
+                                    </header>
+                                    <section class="w-f scrollable wrapper">
+                                        <section class="chat-list">
+                                            <%= turbo_stream_from [:room, @room&.id] %>
+                                            <%= turbo_frame_tag [:room, @room&.id] do %>
+                                              <% @room.messages.each do |message| %>
+                                                <%= render message %>
+                                              <% end %>    
+                                            <% end %>                                       
+                                        </section>
+                                    </section>
+                                    <footer class="footer bg-light lt b-t b-light">
+                                      <%= form_with url: user_messages_path(user_id: current_user.id), method: :post, class: 'm-t-sm' do |form| %>
+                                        <div class="input-group">
+                                          <%= form.text_field :text, placeholder: 'Say Something', class: 'form-control input-sm rounded' %>
+                                          <%= form.hidden_field :connection_id, value: @room.connection.id %>
+                                          <%= form.hidden_field :room_id, value: @room.id %>
+                                          <%= form.hidden_field :user_id, value: current_user.id %>
+                                          <span class="input-group-btn">
+                                            <%= form.submit 'Send', class: 'btn btn-sm btn-dark font-bold btn-rounded' %>
+                                          </span>  
+                                        </div>
+                                      <% end %>                                               
+                                    </footer>
+                                </section>
+                            </section>
+                            <!-- side content -->
+                            <aside class="aside-md bg-primary dker" id="sidebar">
+                                <section class="vbox animated fadeInRight">
+                                    <section class="scrollable">
+                                        <h4 class="font-thin text-white padder m-b-none m-t">Chat</h4>
+                                        <div class="wrapper text-u-c"><strong>Online</strong></div>
+                                        <ul class="list-group no-bg no-borders auto m-b-none">
+                                            <li class="list-group-item">
+                                                <div class="media">
+                                                    <a href="chat.html#" class="pull-right m-t-sm"> <span class="badge badge-empty">4</span> </a>
+                                                    <span class="pull-left thumb-sm avatar"> <img src="<%= image_url('profile_photo.png') %>" alt="..." class="img-circle" /> <i class="on b-white bottom"></i> </span>
+                                                    <div class="media-body">
+                                                        <div><a href="chat.html#">Julien Reowo</a></div>
+                                                        <small class="text-muted">14 sec ago</small>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="wrapper text-u-c"><strong>Offline</strong></div>
+                                        <ul class="list-group no-bg no-borders auto">
+                                            <li class="list-group-item">
+                                                <div class="media">
+                                                    <a href="chat.html#" class="pull-right m-t-sm"><i class="i i-phone"></i></a>
+                                                    <span class="pull-left thumb-sm avatar"> <img src="<%= image_url('profile_photo.png') %>" alt="..." class="img-circle" /> <i class="off b-white bottom"></i> </span>
+                                                    <div class="media-body">
+                                                        <div><a href="chat.html#">Julien Reowo</a></div>
+                                                        <small class="text-muted">14 sec ago</small>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </section>
+                                </section>
+                            </aside>
+                            <!-- / side content -->
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+       

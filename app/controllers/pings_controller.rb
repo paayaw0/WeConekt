@@ -23,6 +23,21 @@ class PingsController < ApplicationController
 
     message = "#{pinger&.username} wants to connect with you too."
 
+    # create_room(target_user, pinger)
+
+    room = Room.new(
+        name: "#{target_user&.username}-#{pinger&.username} #{rand(100)}",
+        room_type: 0
+    )
+
+    pinger.connections.new(
+      room: room,
+      target_user_id: target_user.id
+    )
+
+    room.connection = pinger.connections.last
+    room.save
+
     Turbo::StreamsChannel.broadcast_append_to [:ping, target_user.id],
                                     target: "ping_#{target_user.id}",
                                     partial: 'shared/notification',
