@@ -16,8 +16,12 @@
     }
 
     <%= ".new-body-#{current_user&.id}" %> {
-      margin-right: 45px !important;
-      margin-left: 0 !important;
+      margin-left: 45px !important;
+      margin-right: 0 !important;
+    }
+
+    <%= ".pull-#{current_user&.id}" %> {
+      float: right !important;
     }
 </style>
   <body>
@@ -50,7 +54,7 @@
 <footer id="footer"
         style="bottom: 0;
                width: 100%;
-               position: absolute;">
+               position: fixed;">
     <div class="text-center padder clearfix">
         <p>
             <small>Powered by Hotwire<br>&copy; 2023</small>

@@ -1,10 +1,11 @@
+
 <div>
-  <p class="pull-left"><%= message&.user&.username %></p>
+    <p class="pull-left pull-<%= message&.user_id %>"><%= message&.user&.username %></p>
 </div>  
 <br>
-<br>
-<article class="chat-item left">
-    <section class="chat-body new-body-<%= message&.user&.id %>">
+<article class="chat-item right">
+    <section class="chat-body new-body-<%= message&.user&.id %>"
+                    style="min-width: 10% !important;">
         <div class="panel b-light text-sm m-b-none msg-<%= message&.user&.id %>">
             <div class="panel-body">
                 <p class="m-b-none"><%= message.text %></p>
