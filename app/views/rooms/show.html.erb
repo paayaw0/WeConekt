@@ -42,34 +42,23 @@
                                 </section>
                             </section>
                             <!-- side content -->
-                            <aside class="aside-md bg-primary dker" id="sidebar">
+                            <aside class="aside-md bg-dark dker" id="sidebar">
                                 <section class="vbox animated fadeInRight">
                                     <section class="scrollable">
                                         <h4 class="font-thin text-white padder m-b-none m-t">Chat</h4>
                                         <div class="wrapper text-u-c"><strong>Online</strong></div>
                                         <ul class="list-group no-bg no-borders auto m-b-none">
                                             <li class="list-group-item">
+                                              <% @users.each do |user| %>
+                                              <% next if user == current_user %>
                                                 <div class="media">
-                                                    <a href="chat.html#" class="pull-right m-t-sm"> <span class="badge badge-empty">4</span> </a>
                                                     <span class="pull-left thumb-sm avatar"> <img src="<%= image_url('profile_photo.png') %>" alt="..." class="img-circle" /> <i class="on b-white bottom"></i> </span>
                                                     <div class="media-body">
-                                                        <div><a href="chat.html#">Julien Reowo</a></div>
-                                                        <small class="text-muted">14 sec ago</small>
+                                                        <div><%= user&.name || user&.username %>/div>
+                                                        <small class="text-muted"><%= time_ago_in_words(user&.last_logged_in_at) if user&.last_logged_in_at %> ago</small>
                                                     </div>
                                                 </div>
-                                            </li>
-                                        </ul>
-                                        <div class="wrapper text-u-c"><strong>Offline</strong></div>
-                                        <ul class="list-group no-bg no-borders auto">
-                                            <li class="list-group-item">
-                                                <div class="media">
-                                                    <a href="chat.html#" class="pull-right m-t-sm"><i class="i i-phone"></i></a>
-                                                    <span class="pull-left thumb-sm avatar"> <img src="<%= image_url('profile_photo.png') %>" alt="..." class="img-circle" /> <i class="off b-white bottom"></i> </span>
-                                                    <div class="media-body">
-                                                        <div><a href="chat.html#">Julien Reowo</a></div>
-                                                        <small class="text-muted">14 sec ago</small>
-                                                    </div>
-                                                </div>
+                                              <% end %>    
                                             </li>
                                         </ul>
                                     </section>
