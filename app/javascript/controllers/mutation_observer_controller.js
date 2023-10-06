@@ -3,6 +3,12 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="mutation-observer"
 export default class extends Controller {
   connect() {
+    if(document.querySelector('.alert')) {
+      if(document.querySelector('.alert').getAttributeNames().filter((attribute)=> attribute == 'signal' ).length == 0) {
+        setTimeout(() => document.querySelector('.alert').remove(), 2000);
+      }
+    }
+
     const chatMessages = this.element;
     chatMessages.scrollTop = chatMessages.scrollHeight;
     
@@ -15,12 +21,11 @@ export default class extends Controller {
     const callback = (mutationList, observer) => {
       for (const mutation of mutationList) {
         if (mutation.type === "childList") {
-         
+          console.log(mutation);
           const mutationTarget = document.querySelector("[signal=decline-ping]") || document.querySelector("[signal=accept-ping]") 
           if(mutationTarget == null){
             chatMessages.scrollTop = chatMessages.scrollHeight;
           }else{
-            console.log(mutationTarget);
             setTimeout(()=> mutationTarget.remove(), 2000);
           }
         } else if (mutation.type === "attributes") {
@@ -36,6 +41,8 @@ export default class extends Controller {
   }
 
   disconnect() {
-    this.observer.disconnect();
+    if(this.observer) {
+      this.observer.disconnect();
+    }
   }
 }

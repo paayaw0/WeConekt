@@ -54,7 +54,7 @@
                                                 <div class="media">
                                                     <span class="pull-left thumb-sm avatar"> <img src="<%= image_url('profile_photo.png') %>" alt="..." class="img-circle" /> <i class="on b-white bottom"></i> </span>
                                                     <div class="media-body">
-                                                        <div><%= user&.name || user&.username %>/div>
+                                                        <div><%= user&.name || user&.username %></div>
                                                         <small class="text-muted"><%= time_ago_in_words(user&.last_logged_in_at) if user&.last_logged_in_at %> ago</small>
                                                     </div>
                                                 </div>
