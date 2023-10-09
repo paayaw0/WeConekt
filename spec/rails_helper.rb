@@ -73,6 +73,8 @@ RSpec.configure do |config|
       example.run
     end
   end
+  # test turbo streams
+  config.include ActionCable::TestHelper
 end
 
 Shoulda::Matchers.configure do |config|
