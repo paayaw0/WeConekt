@@ -2,13 +2,11 @@ class RoomsController < ApplicationController
   before_action :set_room, only: [:show]
 
   def index
+    @rooms = current_user.rooms
   end
 
   def show
     @users = User.all
-  end
-
-  def new
   end
 
   def join
