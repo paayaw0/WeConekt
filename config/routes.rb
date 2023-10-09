@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :users, except: [:new] do 
-    resources :messages
+    resources :messages, only: [:create]
   end
 
   resources :sessions, only: [:create]
