@@ -24,7 +24,6 @@ class MessagesController < ApplicationController
   def message_params
     params.permit(
       :text,
-      :connection_id,
       :room_id,
       :user_id
     )

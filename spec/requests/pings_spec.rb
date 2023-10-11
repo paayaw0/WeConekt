@@ -17,17 +17,17 @@ RSpec.describe 'Pings', type: :request do
     end
 
     it 'renders no template' do
-      post '/ping', as: :turbo_stream, params: params
+      post('/ping', as: :turbo_stream, params:)
       expect(response).to render_template(layout: false)
     end
 
     it 'have 204 status code' do
-      post '/ping', as: :turbo_stream, params: params
+      post('/ping', as: :turbo_stream, params:)
       expect(response).to have_http_status(204)
     end
 
     it 'renders shared/notifiation template' do
-      post '/ping',as: :turbo_stream, params: params
+      post('/ping', as: :turbo_stream, params:)
       expect(response).to render_template('shared/_notification')
     end
   end
@@ -41,30 +41,30 @@ RSpec.describe 'Pings', type: :request do
     end
 
     it 'renders no template' do
-      post '/accept_ping', as: :turbo_stream, params: params
+      post('/accept_ping', as: :turbo_stream, params:)
       expect(response).to render_template(layout: false)
     end
 
     it 'have 204 status code' do
-      post '/accept_ping', as: :turbo_stream, params: params
+      post('/accept_ping', as: :turbo_stream, params:)
       expect(response).to have_http_status(204)
     end
 
     it 'renders shared/notifiation template' do
-      post '/accept_ping',as: :turbo_stream, params: params
+      post('/accept_ping', as: :turbo_stream, params:)
       expect(response).to render_template('shared/_notification')
     end
 
     it 'creates room' do
-      expect { 
-        post '/accept_ping',as: :turbo_stream, params: params
-      }.to change(Room, :count).by(1)
+      expect do
+        post '/accept_ping', as: :turbo_stream, params:
+      end.to change(Room, :count).by(1)
     end
 
     it 'creates connection' do
-      expect { 
-        post '/accept_ping',as: :turbo_stream, params: params
-      }.to change(Connection, :count).by(1)
+      expect do
+        post '/accept_ping', as: :turbo_stream, params:
+      end.to change(Connection, :count).by(2)
     end
   end
 
@@ -77,30 +77,30 @@ RSpec.describe 'Pings', type: :request do
     end
 
     it 'renders no template' do
-      post '/decline_ping', as: :turbo_stream, params: params
+      post('/decline_ping', as: :turbo_stream, params:)
       expect(response).to render_template(layout: false)
     end
 
     it 'have 204 status code' do
-      post '/decline_ping', as: :turbo_stream, params: params
+      post('/decline_ping', as: :turbo_stream, params:)
       expect(response).to have_http_status(204)
     end
 
     it 'renders shared/notifiation template' do
-      post '/decline_ping',as: :turbo_stream, params: params
+      post('/decline_ping', as: :turbo_stream, params:)
       expect(response).to render_template('shared/_notification')
     end
 
     it 'does not creates room' do
-      expect { 
-        post '/decline_ping',as: :turbo_stream, params: params
-      }.to change(Room, :count).by(0)
+      expect do
+        post '/decline_ping', as: :turbo_stream, params:
+      end.to change(Room, :count).by(0)
     end
 
     it 'does not creates connection' do
-      expect { 
-        post '/decline_ping',as: :turbo_stream, params: params
-      }.to change(Connection, :count).by(0)
+      expect do
+        post '/decline_ping', as: :turbo_stream, params:
+      end.to change(Connection, :count).by(0)
     end
   end
 end

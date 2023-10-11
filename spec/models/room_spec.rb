@@ -8,7 +8,7 @@ RSpec.describe Room, type: :model do
     .backed_by_column_of_type(:integer) 
   }
 
-  it { should have_one(:connection) }
-  it { should have_many(:users).through(:connection) }
-  it { should have_many(:messages).through(:connection) }
+  it { should have_many(:connections) }
+  it { should have_many(:users).through(:connections) }
+  it { should have_many(:messages) }
 end

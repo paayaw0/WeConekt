@@ -37,7 +37,7 @@ RSpec.describe User, type: :model do
 
   describe 'associations' do
     it { should have_many(:connections) }
-    it { should have_many(:messages).through(:connections) }
+    it { should have_many(:messages) }
     it { should have_many(:rooms).through(:connections) }
   end
   describe 'callbacks' do

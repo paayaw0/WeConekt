@@ -15,6 +15,6 @@ class User < ApplicationRecord
   validates :password, strong_password: true
 
   has_many :connections
-  has_many :messages, through: :connections
+  has_many :messages
   has_many :rooms, through: :connections
 end

@@ -28,13 +28,17 @@ class PingsController < ApplicationController
       name: "#{target_user&.username}-#{pinger&.username} #{rand(100)}",
       room_type: 0
     )
-
-    pinger.connections.new(
+    
+    pinger_connection = pinger.connections.new(
       room:,
-      target_user_id: target_user.id
     )
 
-    room.connection = pinger.connections.last
+    target_connection = target_user.connections.new(
+      room:
+    )
+
+    # debugger
+    room.connections << [pinger_connection, target_connection]
     room.save
 
     Turbo::StreamsChannel.broadcast_append_to [:ping, target_user.id],

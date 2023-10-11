@@ -30,7 +30,6 @@
                                                             action: 'turbo:submit-end->clear-form#clear' }) do |form| %>
                                         <div class="input-group">
                                           <%= form.text_field :text, placeholder: 'Say Something', class: 'form-control input-sm rounded' %>
-                                          <%= form.hidden_field :connection_id, value: @room.connection.id %>
                                           <%= form.hidden_field :room_id, value: @room.id %>
                                           <%= form.hidden_field :user_id, value: current_user.id %>
                                           <span class="input-group-btn">

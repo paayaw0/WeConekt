@@ -4,18 +4,20 @@ RSpec.describe 'Rooms', type: :request do
   let!(:pinger) { create(:user, email: 'pinger@gmail.com') }
   let!(:target_user) { create(:user, email: 'target@gmail.com') }
   let!(:room) do
-    create(:room, name: "#{target_user&.username}-#{pinger&.username} #{rand(100)}",
+    build(:room, name: "#{target_user&.username}-#{pinger&.username} #{rand(100)}",
                   room_type: 0)
   end
-  let!(:connection) do
+  let!(:pinger_connection) do
     build(:connection, user_id: pinger.id,
-                       target_user_id: target_user.id,
+                       room_id: room.id)
+  end
+  let!(:target_connection) do
+    build(:connection, user_id: target_user.id,
                        room_id: room.id)
   end
 
   before do
-    room.connection = pinger.connections.last
-    connection.save
+    room.connections << [pinger_connection, target_connection]
     room.save
     post '/sessions', params: pinger.attributes.slice('email').merge!(password: pinger.password)
   end

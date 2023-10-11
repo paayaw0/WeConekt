@@ -1,9 +1,8 @@
 class Message < ApplicationRecord
-  belongs_to :connection
   belongs_to :user
   belongs_to :room
 
-  after_create_commit -> {
+  after_create_commit lambda {
     broadcast_append_to(
       [:room, room&.id],
       target: "room_#{room&.id}",
@@ -14,7 +13,7 @@ class Message < ApplicationRecord
     )
   }
 
-  after_update_commit -> {
+  after_update_commit lambda {
     broadcast_replace_to(
       [:room, room&.id],
       target: self,
@@ -25,7 +24,7 @@ class Message < ApplicationRecord
     )
   }
 
-  after_destroy -> {
+  after_destroy lambda {
     broadcast_remove_to(
       [:room, room&.id],
       target: self
