@@ -17,10 +17,18 @@
                                         <strong class="block">
                                           <%= user&.name || user&.username %> 
                                           <%= turbo_frame_tag [:room_creation, user.id, current_user.id] do %>
-                                            <%= button_to 'ping', ping_user_url, params: { 
-                                                                                           target_user_id: user.id,
-                                                                                           pinger_id: current_user.id
-                                                                                         }, class: 'btn btn-s-sm btn-dark btn-rounded' %>
+                                            <% if current_user.has_connected_with?(user) %>
+                                              <%= button_to 'continue chat', join_room_url, params: { 
+                                                                                                      room_id: shared_room(current_user, user),
+                                                                                                      pinger_id: current_user.id,
+                                                                                                      target_user_id: user.id 
+                                                                                                    }, class: 'btn btn-s-sm btn-dark btn-rounded', data: { turbo: false } %>
+                                            <% else %>
+                                                <%= button_to 'ping', ping_user_url, params: { 
+                                                                                            target_user_id: user.id,
+                                                                                            pinger_id: current_user.id
+                                                                                            }, class: 'btn btn-s-sm btn-dark btn-rounded' %>
+                                            <% end %>
                                           <% end %>
                                         </strong>
                                     </a>

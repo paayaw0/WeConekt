@@ -17,4 +17,9 @@ class User < ApplicationRecord
   has_many :connections
   has_many :messages
   has_many :rooms, through: :connections
+
+  def has_connected_with?(user)
+    rooms = connections.pluck(:room_id)
+    Connection.where(room_id: [rooms], user_id: user.id).any?
+  end
 end

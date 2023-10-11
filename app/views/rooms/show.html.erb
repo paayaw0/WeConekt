@@ -6,6 +6,7 @@
                             <section>
                                 <section class="vbox">
                                     <header class="header bg-light lt b-b b-light">
+                                        <%= link_to 'leave room', users_path, class: 'btn btn-sm btn-dark pull-right btn-rounded' %>
                                         <%= link_to 'Profile', user_path(current_user), class: 'btn btn-sm btn-default pull-right btn-rounded' %>
                                         <p>Room Name: <strong><%= @room.name %></strong></p>
                                     </header>
