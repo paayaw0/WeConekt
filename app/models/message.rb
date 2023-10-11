@@ -13,4 +13,15 @@ class Message < ApplicationRecord
       }
     )
   }
+
+  after_update_commit -> {
+    broadcast_replace_to(
+      [:room, room&.id],
+      target: self,
+      partial: 'messages/message',
+      locals: {
+        message: self
+      }
+    )
+  }
 end

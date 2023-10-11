@@ -12,7 +12,7 @@
   <style>
     <%= ".msg-#{current_user&.id}" %> {
       background-color: #007bff !important;
-      color: #fff;
+      color: #fff !important;
     }
 
     <%= ".new-body-#{current_user&.id}" %> {
@@ -22,6 +22,14 @@
 
     <%= ".pull-#{current_user&.id}" %> {
       float: right !important;
+    }
+
+    .display-none {
+      display: none;
+    }
+
+    <%= ".display-#{current_user&.id}" %> {
+      display: block;
     }
 </style>
   <body data-controller="mutation-observer">

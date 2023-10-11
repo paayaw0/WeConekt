@@ -1,0 +1,16 @@
+<style>
+  textarea {
+    width: 85%;
+  }
+</style>
+<div class="panel b-light text-sm m-b-none"
+     style="background-color: #007bff;">
+            <div class="panel-body">
+                <p class="m-b-none">
+                    <%= form_with model: message do |form| %>
+                        <%= form.text_area :text %>
+                        <%= form.submit 'Update', class: 'btn btn-sm btn-dark font-bold btn-rounded' %>
+                    <% end %>
+                </p>
+            </div>
+</div>

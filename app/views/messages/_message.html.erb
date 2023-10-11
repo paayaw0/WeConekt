@@ -1,4 +1,4 @@
-
+<%= turbo_frame_tag(message) do %>
 <div>
     <p class="pull-left pull-<%= message&.user_id %>"><%= message&.user&.username %></p>
 </div>  
@@ -12,5 +12,14 @@
             </div>
         </div>
         <small class="text-muted"><i class="fa fa-ok text-success"></i><%= time_ago_in_words(message.created_at) %></small>
+    <div class="pull-right display-none display-<%= message&.user_id %>"
+         style="margin-bottom: 20px;">
+        <%= link_to 'Edit', edit_message_url(message) %>
+        <%= link_to 'Delete', '#' %>
+        <%= link_to 'Copy', '#' %>
+        <%= link_to 'Share', '#' %>
+    </div>
     </section>
+<div>
 </article>
+<% end %>
