@@ -15,7 +15,9 @@
     <div class="pull-right display-none display-<%= message&.user_id %>"
          style="margin-bottom: 20px;">
         <%= link_to 'Edit', edit_message_url(message) %>
-        <%= link_to 'Delete', '#' %>
+        <%= link_to 'Delete', message_url(message), data: { 
+                                                            turbo_method: :delete
+         } %>
         <%= link_to 'Copy', '#' %>
         <%= link_to 'Share', '#' %>
     </div>

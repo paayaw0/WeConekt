@@ -11,6 +11,10 @@ class MessagesController < ApplicationController
     @message.update(update_message_params)
   end
 
+  def destroy
+    @message.destroy
+  end
+
   private
 
   def set_message

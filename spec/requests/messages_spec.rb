@@ -63,4 +63,19 @@ RSpec.describe 'Messages', type: :request do
       expect(message.text).to eq(params[:message][:text])
     end
   end
+
+  describe 'DELETE #destroy' do
+    let!(:message) do
+      create(:message, connection_id: connection.id,
+                       room_id: room.id,
+                       user_id: pinger.id,
+                       text: 'Old Text')
+    end
+
+    it 'can delete message' do
+      expect{ 
+        delete "/messages/#{message.id}"
+      }.to change(Message, :count).by(-1)
+    end
+  end
 end
