@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_11_215748) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_13_150438) do
   create_table "connections", force: :cascade do |t|
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
@@ -26,6 +26,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_11_215748) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.integer "room_id"
+    t.datetime "seen_at"
     t.index ["room_id"], name: "index_messages_on_room_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end

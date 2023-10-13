@@ -4,4 +4,8 @@ module MessagesHelper
       'Edited '
     end
   end
+
+  def can_user_delete_message?(message)
+    message.seen_at
+  end
 end
