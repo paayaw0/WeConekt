@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: [:show]
+  before_action :set_room, only: [:show, :destroy]
 
   def index
     @rooms = current_user.rooms
@@ -15,6 +15,12 @@ class RoomsController < ApplicationController
     @room = Room.find_by(id: params[:room_id])
 
     redirect_to room_path(@room)
+  end
+
+  def destroy
+    @room.connections.destroy_all
+    @room.messages.destroy_all
+    @room.destroy
   end
 
   private

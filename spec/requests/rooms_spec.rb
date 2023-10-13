@@ -74,4 +74,12 @@ RSpec.describe 'Rooms', type: :request do
       expect(response).to have_http_status(302)
     end
   end
+
+  describe 'DELETE #room' do
+    it 'deletes room' do
+      expect{
+        delete "/rooms/#{room.id}"
+      }.to change(Room, :count).by(-1)
+    end
+  end
 end
