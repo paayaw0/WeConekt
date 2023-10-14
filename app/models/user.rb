@@ -18,6 +18,17 @@ class User < ApplicationRecord
   has_many :messages
   has_many :rooms, through: :connections
 
+  after_update_commit -> {
+    broadcast_replace_to(
+      'online_users',
+      target: self,
+      partial: 'users/online_status',
+      locals: {
+        user: self
+      }
+    )
+  }
+
   def has_connected_with?(user)
     rooms = connections.pluck(:room_id)
     Connection.where(room_id: [rooms], user_id: user.id).any?

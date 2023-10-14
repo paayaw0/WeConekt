@@ -33,15 +33,15 @@
     }
 </style>
   <body data-controller="mutation-observer">
-    <%= link_to 'logout', logout_path, 
-                    data: { 
-                        confirm: 'Are you sure?', 
-                        turbo_method: :delete 
-                        },
-                        class: 'pull-right btn btn-s-md btn-dark btn-rounded' if current_user %>
-        <br>
-        <br>
     <% if current_user %>
+      <%= link_to 'logout', logout_path, 
+                      data: { 
+                          confirm: 'Are you sure?', 
+                          turbo_method: :delete 
+                          },
+                          class: 'pull-right btn btn-s-md btn-dark btn-rounded' %> 
+          <br>
+          <br>
       <%= turbo_stream_from [:ping, current_user.id] %>
       <%= turbo_frame_tag [:ping, current_user.id] %>
     <% end %>

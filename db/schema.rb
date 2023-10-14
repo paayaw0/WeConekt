@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_13_150438) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_14_002337) do
   create_table "connections", force: :cascade do |t|
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
@@ -47,6 +47,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_13_150438) do
     t.datetime "updated_at", null: false
     t.datetime "last_logged_in_at"
     t.datetime "last_logged_out_at"
+    t.boolean "online", default: false
+    t.datetime "last_seen_at"
   end
 
   add_foreign_key "connections", "rooms"

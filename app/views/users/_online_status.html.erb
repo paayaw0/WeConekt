@@ -1,0 +1,5 @@
+<%= turbo_frame_tag(user) do %>
+  <div class="btn btn-s-md btn-<%= user.online? ? 'success' : 'default' %> btn-rounded pull-right">
+    <%= user.online? ? 'online' : 'offline' %>
+  </div>
+<% end %>    

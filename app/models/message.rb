@@ -27,7 +27,10 @@ class Message < ApplicationRecord
   after_destroy -> {
     broadcast_remove_to(
       [:room, room&.id],
-      target: self
+      target: self,
+      locals: [
+        user: self
+      ]
     )
   }
 end

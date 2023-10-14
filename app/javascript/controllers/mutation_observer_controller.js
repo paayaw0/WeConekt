@@ -21,7 +21,6 @@ export default class extends Controller {
     const callback = (mutationList, observer) => {
       for (const mutation of mutationList) {
         if (mutation.type === "childList") {
-          console.log(mutation);
           const mutationTarget = document.querySelector("[signal=decline-ping]") || document.querySelector("[signal=accept-ping]") 
           if(mutationTarget == null){
             chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -29,7 +28,7 @@ export default class extends Controller {
             setTimeout(()=> mutationTarget.remove(), 2000);
           }
         } else if (mutation.type === "attributes") {
-          console.log(`The ${mutation.attributeName} attribute was modified.`);
+          // console.log(`The ${mutation.attributeName} attribute was modified.`);
         }
       }
     };

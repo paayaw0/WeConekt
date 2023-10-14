@@ -15,6 +15,7 @@ module SessionsHelper
     raise ErrorHandler::AuthenticationError unless current_user
 
     current_user.last_logged_out_at = DateTime.now
+    current_user.online = false
     current_user.save(validate: false)
     session.delete(:user_id)
     @current_user = nil
