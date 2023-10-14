@@ -1,8 +1,6 @@
 class OnlineStatusChannel < ApplicationCable::Channel
   def subscribed
-    current_user.online = true
-    current_user.last_seen_at = DateTime.now 
-    current_user.save(validate: false)
+    OnlineStatusService.call(current_user)
 
     stream_from 'online_users'
   end
