@@ -1,12 +1,11 @@
 class OnlineStatusChannel < ApplicationCable::Channel
   def subscribed
-    OnlineStatusService.call(current_user)
+    OnlineStatusService.call(current_user, connect_online: true)
 
     stream_from 'online_users'
   end
 
   def unsubscribed
-    current_user.online = false
-    current_user.save(validate: false)
+    OnlineStatusService.call(current_user)
   end
 end
