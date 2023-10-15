@@ -13,8 +13,15 @@ class RoomsController < ApplicationController
     @pinger = User.find_by(id: params[:pinger_id])
     @target_user = User.find_by(id: params[:target_user_id])
     @room = Room.find_by(id: params[:room_id])
+    set_current_room(@room)
 
     redirect_to room_path(@room)
+  end
+
+  def leave
+    unset_current_room
+
+    redirect_to users_url
   end
 
   def destroy

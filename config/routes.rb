@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :sessions, only: [:create]
   resources :rooms
 
+  post '/leave_room', to: 'rooms#leave'
   post '/join_room', to: 'rooms#join'
   post '/ping', to: 'pings#ping_user', as: :ping_user
   post '/decline_ping', to: 'pings#decline'
