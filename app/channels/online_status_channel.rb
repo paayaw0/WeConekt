@@ -7,5 +7,6 @@ class OnlineStatusChannel < ApplicationCable::Channel
 
   def unsubscribed
     OnlineStatusService.call(current_user)
+    current_room_connection.update(current: false)
   end
 end

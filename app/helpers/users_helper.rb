@@ -1,6 +1,9 @@
 module UsersHelper
   def shared_room(pinger, target_user)
-    Connection.where(user_id: [pinger.id, target_user.id]).pluck(:room_id).uniq
+    target_rooms = target_user.connections.pluck(:room_id)
+    pinger_rooms = pinger.connections.pluck(:room_id)
+
+    target_rooms & pinger_rooms
   end
 
   def other_user(room, current_user)

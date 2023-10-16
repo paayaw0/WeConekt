@@ -7,6 +7,7 @@ class RoomsController < ApplicationController
 
   def show
     @users = @room.users
+    set_current_room(@room)
   end
 
   def join

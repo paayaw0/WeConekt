@@ -33,4 +33,8 @@ class User < ApplicationRecord
     rooms = connections.pluck(:room_id)
     Connection.where(room_id: [rooms], user_id: user.id).any?
   end
+
+  def current_room
+    connections.find_by(current: true)&.room #user can only have one connections current at a time
+  end
 end

@@ -3,6 +3,8 @@ class MessagesController < ApplicationController
 
   def create
     Message.create(message_params)
+    room = Room.find_by(id: message_params[:room_id])
+    set_current_room(room)
   end
 
   def edit; end
