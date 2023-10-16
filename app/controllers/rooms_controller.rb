@@ -6,7 +6,7 @@ class RoomsController < ApplicationController
   end
 
   def show
-    @users = User.all
+    @users = @room.users
   end
 
   def join
