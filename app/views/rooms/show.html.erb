@@ -1,5 +1,5 @@
-       <%= turbo_stream_from 'online_users', channel: OnlineStatusChannel %>
-        <section id="online_users" class="vbox">
+       <%= turbo_stream_from "online_users_room_id_#{@room.id}", channel: OnlineStatusChannel %>
+        <section id="online_user_room_id" roomId="<%= @room.id %>" class="vbox">
             <section>
                 <section class="hbox stretch">
                     <section id="content">
