@@ -1,5 +1,5 @@
-       <%= turbo_stream_from "online_users_room_id_#{@room.id}", channel: OnlineStatusChannel %>
-        <section id="online_user_room_id" roomId="<%= @room.id %>" class="vbox">
+       <%= turbo_stream_from "online_users_#{params[:controller]}_id_#{@room.id}", channel: OnlineStatusChannel %>
+        <section id="online_user_room_id" roomId="<%= @room.id %>" userId="<%= current_user.id %>" class="vbox">
             <section>
                 <section class="hbox stretch">
                     <section id="content">
@@ -54,7 +54,7 @@
                                               <% next if user == current_user %>
                                                 <div class="media">
                                                     <%= turbo_frame_tag(user) do %>
-                                                      <%= render 'users/online_status', user: user %>
+                                                      <%= render 'users/online_status', user: user, room: @room %>
                                                     <% end %>
                                                     <div class="media-body">
                                                         <div><%= user&.name || user&.username %></div>
