@@ -22,23 +22,9 @@ class PingsController < ApplicationController
     target_user = User.find_by(id: pings_params[:target_user_id])
     pinger = User.find_by(id: pings_params[:pinger_id])
 
+    RoomCreationService.call(pinger, target_user)
+
     message = "#{pinger&.username} wants to connect with you too."
-
-    room = Room.new(
-      name: "#{target_user&.username}-#{pinger&.username} #{rand(100)}",
-      room_type: 0
-    )
-
-    pinger_connection = pinger.connections.new(
-      room:,
-    )
-
-    target_connection = target_user.connections.new(
-      room:
-    )
-
-    room.connections << [pinger_connection, target_connection]
-    room.save
 
     Turbo::StreamsChannel.broadcast_append_to [:ping, target_user.id],
                                               target: "ping_#{target_user.id}",
