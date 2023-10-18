@@ -19,7 +19,7 @@ class Message < ApplicationRecord
     )
 
     broadcast_replace_to(
-      'online_users',
+      "online_users_rooms_id_#{room_id}",
       target: "toggle_delete_#{id}",
       partial: 'users/toggle_delete_action',
       locals: {
@@ -39,7 +39,7 @@ class Message < ApplicationRecord
     )
 
     broadcast_replace_to(
-      'online_users',
+      "online_users_rooms_id_#{room_id}",
       target: "toggle_delete_#{id}",
       partial: 'users/toggle_delete_action',
       locals: {
