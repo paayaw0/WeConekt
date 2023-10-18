@@ -29,21 +29,24 @@ module SessionsHelper
     return unless room
 
     session[:room_id] = room.id
-    current_user.connections.update_all(current: false) # there can only be one current connection to reflect that there can only be on current_room at a time for the current user
-    connection = Connection.find_by(room_id: room.id, user_id: current_user.id)
-    connection.update(current: true, last_connected_at: DateTime.now)
-    session[:connection_id] = connection.id
+
+    CurrentRoomService.call(current_user, current_room)
+
+    session[:connection_id] = current_connection.id
+
     OnlineStatusService.call(current_user, connect_online: true)
   end
 
   def unset_current_room
     return unless current_room
 
-    connection = Connection.find_by(room_id: current_room.id, user_id: current_user.id)
-    connection.update(current: false)
+    CurrentRoomService.call(current_user, current_room, set_current_connection: false)
+
     session.delete(:connection_id)
     session.delete(:room_id)
+
     OnlineStatusService.call(current_user)
+
     @current_room = nil
     @current_connection = nil
   end
