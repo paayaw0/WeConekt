@@ -15,7 +15,7 @@ class RoomsController < ApplicationController
     @target_user = User.find_by(id: params[:target_user_id])
     @room = Room.find_by(id: params[:room_id])
     set_current_room(@room)
-
+    
     redirect_to room_path(@room)
   end
 
@@ -25,11 +25,7 @@ class RoomsController < ApplicationController
     redirect_to users_url
   end
 
-  def destroy
-    @room.connections.destroy_all
-    @room.messages.destroy_all
-    @room.destroy
-  end
+  def destroy; end
 
   private
 

@@ -28,7 +28,7 @@ class PingsController < ApplicationController
       name: "#{target_user&.username}-#{pinger&.username} #{rand(100)}",
       room_type: 0
     )
-    
+
     pinger_connection = pinger.connections.new(
       room:,
     )
@@ -37,7 +37,6 @@ class PingsController < ApplicationController
       room:
     )
 
-    # debugger
     room.connections << [pinger_connection, target_connection]
     room.save
 

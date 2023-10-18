@@ -25,9 +25,6 @@
                                                                                                       pinger_id: current_user.id,
                                                                                                       target_user_id: user.id 
                                                                                                     }, class: 'btn btn-s-sm btn-dark btn-rounded', data: { turbo: false } %>
-                                              <%= button_to 'delete chat', room_url(shared_room(current_user, user)), data: {
-                                                turbo_method: :delete
-                                              }, class: 'btn btn-s-sm btn-dark btn-rounded' %>
                                             <% else %>
                                                 <%= button_to 'ping', ping_user_url, params: { 
                                                                                             target_user_id: user.id,
