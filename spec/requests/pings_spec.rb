@@ -61,7 +61,7 @@ RSpec.describe 'Pings', type: :request do
       end.to change(Room, :count).by(1)
     end
 
-    it 'creates connection' do
+    it 'creates 2 connections-one for pinger, other for target_user' do
       expect do
         post '/accept_ping', as: :turbo_stream, params:
       end.to change(Connection, :count).by(2)

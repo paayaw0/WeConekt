@@ -34,7 +34,6 @@ module SessionsHelper
     connection.update(current: true, last_connected_at: DateTime.now)
     session[:connection_id] = connection.id
     OnlineStatusService.call(current_user, connect_online: true)
-    RoomMessagesSeenService.call(room)
   end
 
   def unset_current_room

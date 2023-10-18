@@ -11,8 +11,6 @@ class RoomsController < ApplicationController
   end
 
   def join
-    @pinger = User.find_by(id: params[:pinger_id])
-    @target_user = User.find_by(id: params[:target_user_id])
     @room = Room.find_by(id: params[:room_id])
     set_current_room(@room)
     
