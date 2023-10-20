@@ -3,7 +3,9 @@ class OnlineStatusChannel < ApplicationCable::Channel
     room_id = params[:room_id] || current_room&.id || current_user.current_room&.id
     return unless room_id
 
+    room = Room.find(room_id)
     OnlineStatusService.call(current_user, connect_online: true)
+    CurrentRoomService.call(current_user, room)
     send_message({
       body: "#{current_user.name} just joined",
       room_id:,
@@ -17,7 +19,10 @@ class OnlineStatusChannel < ApplicationCable::Channel
     room_id = params[:room_id] || current_room&.id || current_user.current_room&.id
     return unless room_id
 
+    room = Room.find(room_id)
+
     OnlineStatusService.call(current_user)
+    CurrentRoomService.call(current_user, room, set_current_connection: false)
     send_message({
       body: "#{current_user.name} just left!",
       room_id:,

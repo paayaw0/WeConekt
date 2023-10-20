@@ -16,6 +16,7 @@ module SessionsHelper
 
     current_user.last_logged_out_at = DateTime.now
     OnlineStatusService.call(current_user)
+    CurrentRoomService.call(current_user, current_room, set_current_connection: false)
     session.delete(:user_id)
     @current_user = nil
   end
@@ -52,10 +53,10 @@ module SessionsHelper
   end
 
   def current_room
-    @current_room ||= Room.find_by(id: session[:room_id])
+    @current_room = Room.find_by(id: session[:room_id])
   end
 
   def current_connection
-    @current_connection ||= (Connection.find_by(id: session[:connection_id]) || Connection.find_by(current: true))
+    @current_connection = (current_user.connections.find_by(id: session[:connection_id]) || current_user.connections.find_by(current: true))
   end
 end

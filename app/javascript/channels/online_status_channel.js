@@ -6,32 +6,41 @@ const onlineUsersRoom = document.getElementById('online_user_room_id');
 const roomId = onlineUsersRoom?.getAttribute('roomId');
 const userId = onlineUsersRoom?.getAttribute('userId');
 
+
 if(onlineUsersRoom) {
   consumer.subscriptions.create({channel: "OnlineStatusChannel", room_id: roomId }, {
     connected() {
-      // Called when the subscription is ready for use on the server
-    },
+      localStorage.setItem('pageLoaded', 'true');
 
-    disconnected() {
-      // Called when the subscription has been terminated by the server
+      if(localStorage.getItem('pageLoaded') === 'true') {
+        Turbo.cache.clear();
+        Turbo.visit(location.href, {action: 'advance'});
+      }
+      localStorage.setItem('pageLoaded', 'false');
     },
 
     received(data) {
-      // Called when there's incoming data on the websocket for this channel
+      localStorage.setItem('pageLoaded', 'true');
+
       let ele = document.getElementById(`online_status_${data['room_id']}_${data['current_user_id']}`);
       if(userId!==data['current_user_id']) {
           if(ele) {
             if(data['body'].match(/joined/)){
-              ele.classList.remove('btn-default');
-              ele.classList.add('btn-success');
-              ele.innerText = 'online';
+              if(!ele.classList.contains('btn-success')) {
+                ele.classList.remove('btn-default');
+                ele.classList.add('btn-success');
+                ele.innerText = 'online';
+              }
             }else if(data['body'].match(/left/)){
-              ele.classList.remove('btn-success');
-              ele.classList.add('btn-default');
-              ele.innerText = 'offline';
+              if(ele.classList.contains('btn-success')) {
+                ele.classList.remove('btn-success');
+                ele.classList.add('btn-default');
+                ele.innerText = 'offline';
+              }
             }
           }
       }
+      localStorage.setItem('pageLoaded', 'false');
     }
   });
 }
