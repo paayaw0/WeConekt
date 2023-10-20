@@ -42,11 +42,8 @@
                           class: 'pull-right btn btn-s-md btn-dark btn-rounded' %> 
           <br>
           <br>
-      <%= turbo_stream_from [:ping, current_user.id] %>
-      <%= turbo_frame_tag [:ping, current_user.id] %>
     <% end %>
 
-      
      <div class='container'>
        <div class='container'>
        <% flash.each do |message_type, message| %>
