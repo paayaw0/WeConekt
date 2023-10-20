@@ -18,6 +18,22 @@ class User < ApplicationRecord
   has_many :messages
   has_many :rooms, through: :connections
 
+  after_update_commit -> {
+    if rooms.any?
+      rooms.each do |room|
+        broadcast_replace_to(
+          "online_users_rooms_id_#{room.id}",
+          target: self,
+          partial: 'users/online_status',
+          locals: {
+            user: self,
+            room: room
+          }
+        )
+      end
+    end
+  }
+
   
   def has_connected_with?(user)
     rooms = connections.pluck(:room_id)
@@ -26,5 +42,9 @@ class User < ApplicationRecord
 
   def current_room
     connections.find_by(current: true)&.room # user can only have one connections current at a time
+  end
+
+  def online_in_this_room?(room)
+    online? && room == current_room
   end
 end
