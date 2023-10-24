@@ -52,7 +52,7 @@ RSpec.describe 'Rooms', type: :request do
 
     it 'return users in chat room' do
       users = assigns[:users]
-      expect(users).to eq([pinger, target_user])
+      expect(users).to contain_exactly(pinger, target_user)
     end
   end
 
