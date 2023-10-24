@@ -1,0 +1,38 @@
+<h4><%= link_to current_user&.username, current_user %>, here are some people to connect with...</h4>
+<section class="vbox">
+    <section>
+        <section class="hbox stretch">
+            <section id="content">
+                <section class="vbox">
+                    <section class="scrollable bg-white">
+                        <div class="tab-content">
+                        <% @users.each do |user| %>
+                          <% next if user == current_user %>
+                            <ul class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border">
+                                <li class="list-group-item">
+                                    <a class="thumb-sm pull-left m-r-sm"> <img src="<%= image_url('profile_photo.png') %>" class="img-circle" /> </a>
+                                    <a class="clear">
+                                        <small class="pull-right"><%= time_ago_in_words(user&.last_logged_in_at) if user&.last_logged_in_at %> ago</small>
+                                        <%= turbo_stream_from [:room_creation, user.id, current_user.id] %>
+                                        <strong class="block">
+                                          <%= user&.name || user&.username %> 
+                                          <%= turbo_frame_tag [:room_creation, user.id, current_user.id] do %>
+                                          <div style="display: flex;
+                                                       margin: 5px;">
+                                          <span id="connect_options">             
+                                            <%= render 'rooms/connect_options', current_user: current_user, user: user %>
+                                          </span>  
+                                          </div>  
+                                          <% end %>
+                                        </strong>
+                                    </a>
+                                </li>
+                            </ul>
+                        <% end %>    
+                        </div>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
