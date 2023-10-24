@@ -143,6 +143,7 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
+    pg (1.5.4)
     psych (5.1.0)
       stringio
     public_suffix (5.0.3)
@@ -223,7 +224,6 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.6.6-x86_64-linux)
     stimulus-rails (1.2.2)
       railties (>= 6.0.0)
     stringio (3.0.8)
@@ -262,6 +262,7 @@ DEPENDENCIES
   faker
   importmap-rails
   jbuilder
+  pg
   puma (~> 5.0)
   rails (~> 7.0.8)
   rails-controller-testing
@@ -270,7 +271,6 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers (~> 5.0)
   sprockets-rails
-  sqlite3 (~> 1.4)
   stimulus-rails
   turbo-rails
   tzinfo-data
