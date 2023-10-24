@@ -3,9 +3,13 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="mutation-observer"
 export default class extends Controller {
   connect() {
+    const flashMessages = document.querySelectorAll('.alert');
+
     if(document.querySelector('.alert')) {
       if(document.querySelector('.alert').getAttributeNames().filter((attribute)=> attribute == 'signal' ).length == 0) {
-        setTimeout(() => document.querySelector('.alert').remove(), 2000);
+        flashMessages.forEach((message) => {
+          setTimeout(() => message.remove(), 2000);
+        })
       }
     }
 

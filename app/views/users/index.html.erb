@@ -1,6 +1,3 @@
-<%= turbo_stream_from [:ping, current_user.id] %>
-<%= turbo_frame_tag [:ping, current_user.id] %>
-
 <% if @users.any? %>
   <%= render 'users'  %>
 <% else %>

@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   def set_user
     raise ErrorHandler::AuthenticationError unless current_user
 
-    @user = User.find_by(params[:id])
+    @user = User.find_by(id: params[:id])
   end
 
   def user_params
