@@ -4,8 +4,10 @@ class OnlineStatusChannel < ApplicationCable::Channel
     return unless room_id
 
     room = Room.find(room_id)
+
     OnlineStatusService.call(current_user, connect_online: true)
     CurrentRoomService.call(current_user, room)
+
     send_message({
       body: "#{current_user.name} just joined",
       room_id:,
@@ -23,12 +25,12 @@ class OnlineStatusChannel < ApplicationCable::Channel
 
     OnlineStatusService.call(current_user)
     CurrentRoomService.call(current_user, room, set_current_connection: false)
+   
     send_message({
       body: "#{current_user.name} just left!",
       room_id:,
       current_user_id: current_user.id,
     })
-    current_room_connection&.update(current: false)
   end
 
   def send_message(data = {})
