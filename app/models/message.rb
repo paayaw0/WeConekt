@@ -1,4 +1,6 @@
 class Message < ApplicationRecord
+  EDIT_OR_DELETE_TIME_WINDOW = 15.minutes
+
   belongs_to :user
   belongs_to :room
 
@@ -61,5 +63,9 @@ class Message < ApplicationRecord
 
   def seen?
     seen_at
+  end
+
+  def able_to_edit_or_delete?
+    updated_at < EDIT_OR_DELETE_TIME_WINDOW.ago
   end
 end
