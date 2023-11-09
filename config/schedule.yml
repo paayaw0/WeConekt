@@ -1,0 +1,4 @@
+prevent_edit_delete_message_action_time_window_job:
+  cron: "*/1 * * * *"
+  class: "PreventEditDeleteMessageActionTimeWindowJob"
+  queue: "critical"
