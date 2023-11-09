@@ -11,8 +11,8 @@ class User < ApplicationRecord
   validates :email, presence: true,
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
-  validates :password, presence: true, length: { minimum: 6 }
-  validates :password, strong_password: true
+  validates :password, presence: true, length: { minimum: 6 }, unless: ->(obj) { obj.persisted? && obj.password.nil? }
+  validates :password, strong_password: true, unless: ->(obj) { obj.persisted? && obj.password.nil? }
 
   has_many :connections
   has_many :messages
