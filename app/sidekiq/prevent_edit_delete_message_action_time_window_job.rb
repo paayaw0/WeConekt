@@ -2,6 +2,8 @@ class PreventEditDeleteMessageActionTimeWindowJob
   include Sidekiq::Job
 
   def perform
+    # PERFORMANCE BOTTLENECK
+
     Message.find_each do |message|
       next if message.able_to_edit_or_delete?
 
@@ -10,7 +12,7 @@ class PreventEditDeleteMessageActionTimeWindowJob
         target: "toggle_edit_delete_#{message.id}",
         partial: 'users/toggle_edit_delete_action',
         locals: {
-          message: message
+          message:
         }
       )
     end

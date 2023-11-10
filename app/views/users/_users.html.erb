@@ -12,7 +12,7 @@
                                 <li class="list-group-item">
                                     <a class="thumb-sm pull-left m-r-sm"> <img src="<%= image_url('profile_photo.png') %>" class="img-circle" /> </a>
                                     <a class="clear">
-                                        <small class="pull-right"><%= time_ago_in_words(user&.last_logged_in_at) if user&.last_logged_in_at %> ago</small>
+                                        <small class="pull-right"><%= render 'shared/timestamp', model_instance: user, timestamp_field: :last_logged_in_at if user&.last_logged_in_at %></small>
                                         <%= turbo_stream_from [:room_creation, user.id, current_user.id] %>
                                         <strong class="block">
                                           <%= user&.name || user&.username %> 

@@ -1,4 +1,5 @@
 <%= turbo_stream_from "online_users_#{params[:controller]}_id_#{@room.id}", channel: OnlineStatusChannel %>
+
 <section id="online_user_room_id" roomId="<%= @room.id %>" userId="<%= current_user.id %>" class="vbox">
     <section>
         <section class="hbox stretch">
@@ -8,7 +9,7 @@
                         <section class="vbox">
                             <header class="header bg-light lt b-b b-light">
                                 <%= button_to 'leave room', leave_room_path, class: 'btn btn-sm btn-dark pull-right btn-rounded' %>
-                                <%= button_to 'Profile', user_path(current_user), method: :get, class: 'btn btn-sm btn-default pull-right btn-rounded' %>
+                                <%= button_to "#{current_user&.username}", user_path(current_user), method: :get, class: 'btn btn-sm btn-default pull-right btn-rounded' %>
                                 <p id="room">Room Name: <strong><%= @room.name %></strong></p>
                             </header>
                             <section class="w-f scrollable wrapper"
@@ -56,7 +57,7 @@
                                             <% end %>
                                             <div class="media-body">
                                                 <div><%= user&.name || user&.username %></div>
-                                                <small class="text-muted"><%= time_ago_in_words(user&.last_logged_in_at) if user&.last_logged_in_at %> ago</small>
+                                                <small class="text-muted"><%= render 'shared/timestamp', model_instance: user, timestamp_field: :last_logged_in_at if user&.last_logged_in_at %></small>
                                             </div>
                                         </div>
                                         <% end %>    
