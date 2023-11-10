@@ -1,6 +1,7 @@
+ <%= link_to 'Edit', edit_message_url(message) if message.able_to_edit_or_delete? %>
+
 <%= turbo_frame_tag([:toggle_edit_delete, message&.id]) do %>
   <% if message.able_to_edit_or_delete? %>
-    <%= link_to 'Edit', edit_message_url(message) %>
     <%= link_to 'Delete', message_url(message), data: { 
                                                                 turbo_method: :delete
             } %>

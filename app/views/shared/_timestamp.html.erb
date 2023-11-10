@@ -1,5 +1,1 @@
-<%= turbo_stream_from [:timestamp_update] %>
-
-<%= turbo_frame_tag [:timestamp_update] do %>
-  <%= model_instance.send(timestamp_field).strftime("%H:%M, %b %d %Y") %>
-<% end %>
+<%= model_instance.send(timestamp_field).strftime("%H:%M, %b %d %Y") %>
