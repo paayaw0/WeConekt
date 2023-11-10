@@ -23,7 +23,7 @@ class Message < ApplicationRecord
     broadcast_replace_to(
       "online_users_rooms_id_#{room_id}",
       target: "toggle_delete_#{id}",
-      partial: 'users/toggle_delete_action',
+      partial: 'users/toggle_edit_delete_action',
       locals: {
         message: self
       }
@@ -43,7 +43,7 @@ class Message < ApplicationRecord
     broadcast_replace_to(
       "online_users_rooms_id_#{room_id}",
       target: "toggle_delete_#{id}",
-      partial: 'users/toggle_delete_action',
+      partial: 'users/toggle_edit_delete_action',
       locals: {
         message: self
       }
@@ -66,6 +66,6 @@ class Message < ApplicationRecord
   end
 
   def able_to_edit_or_delete?
-    updated_at < EDIT_OR_DELETE_TIME_WINDOW.ago
+    (updated_at + EDIT_OR_DELETE_TIME_WINDOW) > DateTime.now
   end
 end
