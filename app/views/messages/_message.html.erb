@@ -15,7 +15,7 @@
     <div class="pull-right display-none display-<%= message&.user_id %>"
          style="margin-bottom: 20px;">
         <%= render 'users/toggle_edit_delete_action', message: message %>
-        <%= link_to 'Copy', '#' %>
+        <%= link_to 'Copy', '#', data: { controller: 'clipboard', action: 'clipboard#copy' } %>
         <%= link_to 'Share', '#' %>
     </div>
     </section>
