@@ -1,0 +1,7 @@
+<%= form_with model: SharedMessage.new do |form| %>
+    <%= form.collection_check_boxes :rooms, current_user.rooms.order(:name), :id, :name %>
+    <%= form.hidden_field :room_id, value: current_room.id %>
+    <%= form.hidden_field :user_id, value: current_user.id %>
+    <%= form.hidden_field :message_id, value: @message.id %>
+    <%= form.submit "Share"  %>
+<% end %>

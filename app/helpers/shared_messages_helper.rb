@@ -1,0 +1,2 @@
+module SharedMessagesHelper
+end

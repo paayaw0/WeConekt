@@ -17,8 +17,9 @@ class User < ApplicationRecord
   has_many :connections
   has_many :messages
   has_many :rooms, through: :connections
+  has_many :shared_messages
 
-  after_update_commit -> {
+  after_update_commit lambda {
     if rooms.any?
       rooms.each do |room|
         broadcast_replace_to(
@@ -27,14 +28,13 @@ class User < ApplicationRecord
           partial: 'users/online_status',
           locals: {
             user: self,
-            room: room
+            room:
           }
         )
       end
     end
   }
 
-  
   def has_connected_with?(user)
     rooms = connections.pluck(:room_id)
     Connection.where(room_id: [rooms], user_id: user.id).any?

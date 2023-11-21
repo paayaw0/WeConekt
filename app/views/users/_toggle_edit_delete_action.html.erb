@@ -1,7 +1,7 @@
  <span class="display-none display-<%= message&.user_id %>"
        style="float: left;
               margin-right: 0.5em;">
-  <%= link_to 'Edit', edit_message_url(message) if message.able_to_edit_or_delete? %>
+  <%= link_to 'Edit', edit_message_url(message) if message.able_to_edit_or_delete? && message.is_original? %>
 
   <%= turbo_frame_tag([:toggle_edit_delete, message&.id]) do %>
     <% if message.able_to_edit_or_delete? %>

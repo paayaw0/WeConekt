@@ -3,14 +3,15 @@ class Message < ApplicationRecord
 
   belongs_to :user
   belongs_to :room
+  has_many :shared_messages
 
   validates :text, presence: true
 
-  before_save -> {
+  before_save lambda {
     self.seen_at = DateTime.now if other_user&.online?
   }
 
-  after_create_commit -> {
+  after_create_commit lambda {
     broadcast_append_to(
       [:room, room&.id],
       target: "room_#{room&.id}",
@@ -28,9 +29,9 @@ class Message < ApplicationRecord
         message: self
       }
     )
-  }
+  }, unless: proc { |message| message.copy == true }
 
-  after_update_commit -> {
+  after_update_commit lambda {
     broadcast_replace_to(
       [:room, room&.id],
       target: self,
@@ -50,7 +51,7 @@ class Message < ApplicationRecord
     )
   }
 
-  after_destroy -> {
+  after_destroy lambda {
     broadcast_remove_to(
       [:room, room&.id],
       target: self
@@ -67,5 +68,21 @@ class Message < ApplicationRecord
 
   def able_to_edit_or_delete?
     (updated_at + EDIT_OR_DELETE_TIME_WINDOW) > DateTime.now
+  end
+
+  def copies
+    Message.where(text:, copy: true)
+  end
+
+  def is_copy?
+    copy?
+  end
+
+  def is_original?
+    !copy?
+  end
+
+  def has_copies?
+    copies.any?
   end
 end

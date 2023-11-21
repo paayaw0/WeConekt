@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
-  resources :users, except: [:new] do 
+  get 'shared_messages/new'
+  resources :users, except: [:new] do
     resources :messages, only: [:create]
   end
 
-  resources :messages, only: [:edit, :update, :destroy]
+  resources :messages, only: %i[edit update destroy]
+  resources :shared_messages
 
   resources :sessions, only: [:create]
   resources :rooms
