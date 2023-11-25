@@ -1,13 +1,15 @@
  <span class="display-none display-<%= message&.user_id %>"
-       style="float: left;
-              margin-right: 0.5em;">
-  <%= link_to 'Edit', edit_message_url(message) if message.able_to_edit_or_delete? && message.is_original? %>
-
-  <%= turbo_frame_tag([:toggle_edit_delete, message&.id]) do %>
-    <% if message.able_to_edit_or_delete? %>
-      <%= link_to 'Delete', message_url(message), data: { 
-                                                                  turbo_method: :delete
-              } %>
-    <% end %>       
-  <% end %>    
+       style="position: absolute;
+              margin-left: -8%;">
+  <%= link_to 'Edit', edit_message_url(message) if message.able_to_edit? %>
 </span>  
+
+<%= turbo_frame_tag 'delete_message_options' do %>
+  <% unless message.delete_for_everyone? %>
+    <span class="display-message display-message-none-<%= message.delete_for_current_user_id %>"
+          style="position: absolute;
+                 margin-left: -5%;">
+      <%= link_to 'Delete',  delete_message_options_url(message_id: message.id ) %>
+    </span>  
+  <% end %>  
+<% end %>

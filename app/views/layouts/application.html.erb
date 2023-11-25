@@ -32,6 +32,14 @@
       display: block;
     }
 
+    .display-message {
+      display: block;
+    }
+
+    <%= ".display-message-none-#{current_user&.id}" %> {
+      display: none;
+    }
+
     .alert {
       text-align: center;
       margin-left: 25%;

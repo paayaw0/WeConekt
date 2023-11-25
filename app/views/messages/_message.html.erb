@@ -7,25 +7,32 @@
                             style="min-width: 10% !important;">
                 <div class="panel b-light text-sm m-b-none">
                     <div class="panel-body">
-                    <i>shared</i>
-                        <p class="m-b-none"><%= message.text %></p>
+                      <i>shared</i>
+                     <% if message.delete_for_everyone? %>
+                       <p class="m-b-none">deleted</p>
+                     <% else %>
+                       <p class="display-none display-<%= message.delete_for_current_user_id %>"> deleted </p>
+                       <p class="display-message display-message-none-<%= message.delete_for_current_user_id %>"><%= message.text %> </p>
+                    <% end %>
                     </div>
                 </div>
                 <small class="text-muted"><i class="fa fa-ok text-success"></i><%= edit_timestamp(message) %> <%= render 'shared/timestamp', model_instance: message, timestamp_field: :created_at %></small>
-            <div class="pull-right"
-                style="margin-bottom: 20px;">
-                <%= render 'users/toggle_edit_delete_action', message: message %>
-                <%= link_to 'Copy', '#', data: { controller: 'clipboard', action: 'clipboard#copy' } %>
-                
-                <%= turbo_frame_tag "shared_message_form" do %>
-                <%= link_to 'Share', new_shared_message_url(message_id: message.id) %>
-                <% end %>
-            </div>
+            <% unless message.deleted? %>
+                <div class="pull-right display-message display-message-none-<%= message.delete_for_current_user_id %>"
+                    style="margin-bottom: 20px;">
+                    <%= render 'users/toggle_edit_delete_action', message: message %>
+                    <%= link_to 'Copy', '#', data: { controller: 'clipboard', action: 'clipboard#copy' } %>
+                    
+                    <%= turbo_frame_tag "shared_message_form" do %>
+                    <%= link_to 'Share', new_shared_message_url(message_id: message.id) %>
+                    <% end %>
+                </div>
+            <% end %>    
             </section>
         <div>
         </article>
       </span>    
-    <% elsif message.is_original? %>    
+    <% elsif message.is_original? %>
         <div>
             <p class="pull-left pull-<%= message&.user_id %>"><%= message&.user&.username %></p>
         </div>  
@@ -35,19 +42,26 @@
                             style="min-width: 10% !important;">
                 <div class="panel b-light text-sm m-b-none msg-<%= message&.user&.id %>">
                     <div class="panel-body">
-                        <p class="m-b-none"><%= message.text %></p>
+                      <% if message.delete_for_everyone? %>
+                       <p class="m-b-none">deleted</p>
+                     <% else %>
+                       <p class="display-none display-<%= message.delete_for_current_user_id %>"> deleted </p>
+                       <p class="display-message display-message-none-<%= message.delete_for_current_user_id %>"><%= message.text %> </p>
+                    <% end %>
                     </div>
                 </div>
                 <small class="text-muted"><i class="fa fa-ok text-success"></i><%= edit_timestamp(message) %> <%= render 'shared/timestamp', model_instance: message, timestamp_field: :created_at %></small>
-            <div class="pull-right"
-                style="margin-bottom: 20px;">
-                <%= render 'users/toggle_edit_delete_action', message: message %>
-                <%= link_to 'Copy', '#', data: { controller: 'clipboard', action: 'clipboard#copy' } %>
-                
-                <%= turbo_frame_tag "shared_message_form" do %>
-                <%= link_to 'Share', new_shared_message_url(message_id: message.id) %>
-                <% end %>
-            </div>
+            <% unless message.deleted? %>
+                <div class="pull-right display-message display-message-none-<%= message.delete_for_current_user_id %>"
+                    style="margin-bottom: 20px;">
+                    <%= render 'users/toggle_edit_delete_action', message: message %>
+                    <%= link_to 'Copy', '#', data: { controller: 'clipboard', action: 'clipboard#copy' } %>
+                    
+                    <%= turbo_frame_tag "shared_message_form" do %>
+                    <%= link_to 'Share', new_shared_message_url(message_id: message.id) %>
+                    <% end %>
+                </div>
+            <% end %>
             </section>
         <div>
         </article>

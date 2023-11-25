@@ -40,6 +40,8 @@ class SharedMessage < ApplicationRecord
     room
   end
 
+  private
+
   def create_copy_of_message(message, room_id_)
     room = Room.find(room_id_)
 
