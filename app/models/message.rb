@@ -52,9 +52,13 @@ class Message < ApplicationRecord
   }
 
   after_destroy lambda {
-    broadcast_remove_to(
+    broadcast_replace_to(
       [:room, room&.id],
-      target: self
+      target: "room_#{room&.id}",
+      partial: 'messages/message',
+      locals: {
+        message: self
+      }
     )
   }
 
@@ -66,8 +70,8 @@ class Message < ApplicationRecord
     seen_at
   end
 
-  def able_to_edit_or_delete?
-    (updated_at + EDIT_OR_DELETE_TIME_WINDOW) > DateTime.now
+  def able_to_edit?
+    (created_at + EDIT_OR_DELETE_TIME_WINDOW) > DateTime.now
   end
 
   def copies
@@ -84,5 +88,9 @@ class Message < ApplicationRecord
 
   def has_copies?
     copies.any?
+  end
+
+  def deleted?
+    delete_for_everyone
   end
 end
