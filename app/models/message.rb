@@ -3,7 +3,7 @@ class Message < ApplicationRecord
 
   encrypts :text
 
-  belongs_to :user
+  belongs_to :user, touch: true
   belongs_to :room
   has_many :shared_messages
 

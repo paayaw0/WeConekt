@@ -1,7 +1,7 @@
 class SharedMessage < ApplicationRecord
   belongs_to :message
   belongs_to :room
-  belongs_to :user
+  belongs_to :user, touch: true
   has_and_belongs_to_many :rooms
 
   after_create_commit lambda {

@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   private
 
   def authenticate_user!
+    reset_session_if_inactive
+
     raise ErrorHandler::AuthenticationError unless current_user
   end
 end

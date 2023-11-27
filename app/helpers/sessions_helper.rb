@@ -59,4 +59,14 @@ module SessionsHelper
   def current_connection
     @current_connection = (current_user.connections.find_by(id: session[:connection_id]) || current_user.connections.find_by(current: true))
   end
+
+  def reset_session_if_inactive
+    return unless current_user
+
+    inactive = current_user.updated_at < User::MAX_SESSION_TIME.ago
+
+    return unless inactive
+
+    session.clear
+  end
 end
