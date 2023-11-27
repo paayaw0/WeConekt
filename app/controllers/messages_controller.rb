@@ -19,13 +19,26 @@ class MessagesController < ApplicationController
     if delete_for_everyone || @message.delete_for_current_user_id
       redacted_text = @message.text.gsub(/./, '*')
       @message.update(text: redacted_text, delete_for_everyone: true) # redacts text for object globally
-    else
+    elsif delete_options_params[:delete_for_current_user_id] == '1'
       @message.update(delete_for_current_user_id: current_user.id) # used to redact text in views
     end
   end
 
   def delete_message_options
     @message = Message.find_by(id: params[:message_id])
+  end
+
+  def cancel
+    message = Message.find(params[:message_id])
+
+    message.broadcast_replace_to(
+      [:room, message.room&.id],
+      target: message,
+      partial: 'messages/message',
+      locals: {
+        message:
+      }
+    )
   end
 
   private

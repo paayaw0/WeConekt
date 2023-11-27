@@ -24,8 +24,9 @@
                     <%= link_to 'Copy', '#', data: { controller: 'clipboard', action: 'clipboard#copy' } %>
                     
                     <%= turbo_frame_tag "shared_message_form" do %>
-                    <%= link_to 'Share', new_shared_message_url(message_id: message.id) %>
+                      <%= link_to 'Share', new_shared_message_url(message_id: message.id) %>
                     <% end %>
+                    <%= link_to 'Cancel', cancel_url(message_id: message.id), data: { turbo_method: :post }  %>
                 </div>
             <% end %>    
             </section>
@@ -58,8 +59,9 @@
                     <%= link_to 'Copy', '#', data: { controller: 'clipboard', action: 'clipboard#copy' } %>
                     
                     <%= turbo_frame_tag "shared_message_form" do %>
-                    <%= link_to 'Share', new_shared_message_url(message_id: message.id) %>
+                      <%= link_to 'Share', new_shared_message_url(message_id: message.id) %>
                     <% end %>
+                    <%= link_to 'Cancel', cancel_url(message_id: message.id), data: { turbo_method: :post }  %>
                 </div>
             <% end %>
             </section>

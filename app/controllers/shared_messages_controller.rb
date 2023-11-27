@@ -4,7 +4,7 @@ class SharedMessagesController < ApplicationController
   end
 
   def create
-    # debugger
+    return if shared_message_params[:rooms] == ['']
 
     shared_message = SharedMessage.new(shared_message_params.to_h.except(:rooms))
     rooms = Room.where(id: params[:shared_message][:rooms])

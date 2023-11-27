@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :messages, only: %i[edit update destroy]
   get '/delete_message_options/:message_id', to: 'messages#delete_message_options', as: :delete_message_options
+  post '/cancel', to: 'messages#cancel'
 
   resources :shared_messages
 
