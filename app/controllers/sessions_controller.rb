@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_action :authenticate_user!, only: %i[new create]
+
   def new; end
 
   def create
@@ -7,7 +9,7 @@ class SessionsController < ApplicationController
     if user&.authenticate_password(login_params[:password])
       login_user(user)
 
-      flash[:success] = "Welcome Back, #{user.name || user.username}"       
+      flash[:success] = "Welcome Back, #{user.name || user.username}"
       redirect_to users_path
     else
       flash.now[:error] = 'Invalid email/password'
