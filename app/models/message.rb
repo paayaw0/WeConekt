@@ -1,6 +1,8 @@
 class Message < ApplicationRecord
   EDIT_OR_DELETE_TIME_WINDOW = 15.minutes
 
+  encrypts :text
+
   belongs_to :user
   belongs_to :room
   has_many :shared_messages
