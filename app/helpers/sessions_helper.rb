@@ -17,7 +17,7 @@ module SessionsHelper
     current_user.last_logged_out_at = DateTime.now
     OnlineStatusService.call(current_user)
     CurrentRoomService.call(current_user, current_room, set_current_connection: false) if current_room
-    session.delete(:user_id)
+    session.clear
     @current_user = nil
   end
 
