@@ -78,6 +78,10 @@ class Message < ApplicationRecord
     Message.where(text:, copy: true)
   end
 
+  def original
+    self.class.find_by(text:, copy: false)
+  end
+
   def is_copy?
     copy?
   end
