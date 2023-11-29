@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_24_103722) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_29_015533) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,6 +39,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_24_103722) do
     t.boolean "delete_for_everyone", default: false
     t.index ["room_id"], name: "index_messages_on_room_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "room_configurations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
+    t.interval "disappearing_messages"
+    t.boolean "chat_lock_enabled"
+    t.string "chat_lock_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_room_configurations_on_room_id"
+    t.index ["user_id"], name: "index_room_configurations_on_user_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -83,6 +95,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_24_103722) do
   add_foreign_key "connections", "users"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
+  add_foreign_key "room_configurations", "rooms"
+  add_foreign_key "room_configurations", "users"
   add_foreign_key "shared_messages", "messages"
   add_foreign_key "shared_messages", "rooms"
   add_foreign_key "shared_messages", "users"
