@@ -4,7 +4,7 @@ class Message < ApplicationRecord
   encrypts :text
 
   belongs_to :user, touch: true
-  belongs_to :room
+  belongs_to :room, touch: true
   has_many :shared_messages
 
   validates :text, presence: true
@@ -54,13 +54,9 @@ class Message < ApplicationRecord
   }
 
   after_destroy lambda {
-    broadcast_replace_to(
+    broadcast_remove_to(
       [:room, room&.id],
-      target: "room_#{room&.id}",
-      partial: 'messages/message',
-      locals: {
-        message: self
-      }
+      target: "message_#{id}"
     )
   }
 

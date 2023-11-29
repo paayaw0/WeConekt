@@ -8,7 +8,7 @@ class Room < ApplicationRecord
   has_many :users, through: :connections
   has_many :messages
   has_and_belongs_to_many :shared_messages
-  has_many :room_configurations
+  has_one :room_configuration
 
   after_create_commit lambda {
     user_id = connections.first.user_id

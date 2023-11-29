@@ -1,0 +1,4 @@
+disappearing_messages_job:
+  cron: "*/30 * * * * *"
+  class: "DisappearingMessaagesJob"
+  queue: default

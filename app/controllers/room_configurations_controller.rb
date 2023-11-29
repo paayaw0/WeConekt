@@ -8,6 +8,7 @@ class RoomConfigurationsController < ApplicationController
     room = Room.find_by(id: room_config_params[:room_id])
     duration = room_config_params[:disappearing_messages].to_i
 
+    # TODO: re-write for has_one relationship
     room_config = RoomConfiguration.find_or_create_by(
       user_id: user.id,
       room_id: room.id
