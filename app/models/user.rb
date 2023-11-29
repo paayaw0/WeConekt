@@ -19,6 +19,7 @@ class User < ApplicationRecord
   has_many :messages
   has_many :rooms, through: :connections
   has_many :shared_messages
+  has_one :room_configuration
 
   after_update_commit lambda {
     if rooms.any?

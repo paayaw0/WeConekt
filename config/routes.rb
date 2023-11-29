@@ -11,7 +11,12 @@ Rails.application.routes.draw do
   resources :shared_messages
 
   resources :sessions, only: [:create]
+
   resources :rooms
+  get '/set_disappearing_messages/:room_id', to: 'room_configurations#set_disappearing_messages',
+                                             as: :set_disappearing_messages
+  post '/enable_disappearing_messages', to: 'room_configurations#enable_disappearing_messages',
+                                        as: :enable_disappearing_messages
 
   post '/leave_room', to: 'rooms#leave'
   post '/join_room', to: 'rooms#join'

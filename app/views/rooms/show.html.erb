@@ -63,6 +63,15 @@
                                         <% end %>    
                                     </li>
                                 </ul>
+                                <div class="wrapper text-u-c">
+                                  <strong>Room Configurations</strong>
+                                  <br>
+                                  <br>
+                                  <%= turbo_stream_from [:user_room_config, @room.id, current_user.id] %>
+                                  <%= render "room_configurations/disappearing_messages", room: @room, user: current_user %>
+                                  <br>
+                                  <%= render "room_configurations/chat_lock", room: @room %>
+                                </div>
                             </section>
                         </section>
                     </aside>

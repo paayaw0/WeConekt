@@ -1,0 +1,15 @@
+<%= turbo_frame_tag [:disappearing_messages, room.id, user.id] do %>
+    <div class="media-body">
+        <div>Disappearing messages</div>
+        <div>
+            <strong>
+                <%= link_to set_disappearing_messages_url(room) do %>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                        <label><%= room.room_configurations.find_by(user_id: user.id)&.disappearing_messages.nil?  ? 'off' : 'on' %></label>
+                    </div>
+                <% end %>    
+        </strong>
+        </div>
+    </div>
+<% end %>
