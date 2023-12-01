@@ -40,4 +40,8 @@ class Room < ApplicationRecord
   def other_user(user)
     users.select { |u| u != user }[0]
   end
+
+  def room_name(user)
+    other_user(user).username.titlecase
+  end
 end

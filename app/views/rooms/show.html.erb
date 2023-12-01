@@ -10,7 +10,7 @@
                             <header class="header bg-light lt b-b b-light">
                                 <%= button_to 'leave room', leave_room_path, class: 'btn btn-sm btn-dark pull-right btn-rounded' %>
                                 <%= button_to "#{current_user&.username}", user_path(current_user), method: :get, class: 'btn btn-sm btn-default pull-right btn-rounded' %>
-                                <p id="room">Room Name: <strong><%= @room.name %></strong></p>
+                                <p id="room"><strong><%= @room.other_user(current_user).username.titlecase %></strong></p>
                             </header>
                             <section class="w-f scrollable wrapper"
                                         style="max-height: 75vh !important;

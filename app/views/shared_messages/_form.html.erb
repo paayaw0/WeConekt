@@ -1,6 +1,6 @@
 <%= form_with model: SharedMessage.new do |form| %>
     <%= form.collection_check_boxes(:rooms, current_user.rooms.order(:name), :id, :name) do |b| %>
-        <%= b.label(class: "list-group-item") { b.check_box + " " + b.text } %>
+        <%= b.label(class: "list-group-item") { b.check_box + " " + b.object.room_name(current_user) } %>
     <% end %>
     <%= form.hidden_field :room_id, value: current_room.id %>
     <%= form.hidden_field :user_id, value: current_user.id %>
