@@ -9,10 +9,10 @@ class OnlineStatusChannel < ApplicationCable::Channel
     CurrentRoomService.call(current_user, room)
 
     send_message({
-      body: "#{current_user.name} just joined",
-      room_id:,
-      current_user_id: current_user.id,
-    })
+                   body: "#{current_user.name} just joined",
+                   room_id:,
+                   current_user_id: current_user.id
+                 })
 
     stream_from "online_users_rooms_id_#{room_id}"
   end
@@ -25,12 +25,13 @@ class OnlineStatusChannel < ApplicationCable::Channel
 
     OnlineStatusService.call(current_user)
     CurrentRoomService.call(current_user, room, set_current_connection: false)
-   
+    RoomLockAuthenticationService.call(current_user, room, re_authenticate: true)
+
     send_message({
-      body: "#{current_user.name} just left!",
-      room_id:,
-      current_user_id: current_user.id,
-    })
+                   body: "#{current_user.name} just left!",
+                   room_id:,
+                   current_user_id: current_user.id
+                 })
   end
 
   def send_message(data = {})

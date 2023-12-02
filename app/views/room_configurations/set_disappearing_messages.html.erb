@@ -4,7 +4,7 @@
   <%= form.hidden_field :user_id, value: current_user.id %>
   <div class="radio-buttons">
     <%= form.collection_radio_buttons :disappearing_messages, [[90.days, '90 days'], [2.weeks, '2 weeks'], [7.days, '7 days'], [24.hours, '24 hours'], [0, 'off']], :first, :last, { checked: selected_disappearing_messages_duration(current_user.id, @room.id)  } do |b| %>
-    <%= b.label(:"data-value" => b.value, style: 'display: block;') { b.radio_button + b.text } %>
+      <%= b.label(:"data-value" => b.value, style: 'display: block;') { b.radio_button + b.text } %>
     <% end %>
     <%= form.submit 'Set Duration', class: "btn btn-rounded btn-sm btn-default" %>
   </div>

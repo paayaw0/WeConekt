@@ -11,7 +11,8 @@ class CurrentRoomService < ApplicationService
   def call
     max_tries = 5
 
-    user.connections.update_all(current: false) if set_current_connection # there can only be one current connection to reflect that there can only be on current_room at a time for the current user
+    # there can only be one current connection to reflect that there can only be on current_room at a time for the current user
+    user.connections.update_all(current: false) if set_current_connection
     connection.reload.with_lock do
       connection.update(current: set_current_connection, last_connected_at: DateTime.now)
     end
