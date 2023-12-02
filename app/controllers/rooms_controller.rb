@@ -41,7 +41,7 @@ class RoomsController < ApplicationController
 
   def activate_room_chat_lock_authentication!
     room_config = RoomConfiguration.find_by(room: @room, user: current_user)
-
+    return unless room_config
     return unless room_config.chat_locked? && room_config.chat_lock_token.nil?
 
     flash[:error] = 'You must sign in first'
