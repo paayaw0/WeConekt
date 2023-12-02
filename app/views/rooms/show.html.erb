@@ -19,7 +19,7 @@
                                 <section class="chat-list" id="target" style="overflow-anchor: none;">
                                     <%= turbo_stream_from [:room, @room&.id] %>
                                     <%= turbo_frame_tag [:room, @room&.id] do %>
-                                        <%= render 'messages/messages', room: @room %>
+                                        <%= render 'messages/messages', room: @room, user: current_user %>
                                     <% end %> 
                                 </section>
                             </section>

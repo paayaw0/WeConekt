@@ -1,1 +1,1 @@
-<%= render room.messages.order(:created_at) %>
+<%= render room.messages.order(:created_at), user: user  %>

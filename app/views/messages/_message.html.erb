@@ -47,8 +47,8 @@
                       <% if message.delete_for_everyone? %>
                        <p class="m-b-none">deleted</p>
                      <% else %>
-                       <p class="display-none display-<%= message.delete_for_current_user_id %>"> deleted </p>
-                       <p class="display-message display-message-none-<%= message.delete_for_current_user_id %>"><%= message.text %> </p>
+                       <p class="display-none display-<%= user.id %>"> deleted </p>
+                       <p class="display-message display-message-none-<%= user.id %>"><%= message.text %> </p>
                     <% end %>
                     </div>
                 </div>

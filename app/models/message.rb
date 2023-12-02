@@ -19,7 +19,8 @@ class Message < ApplicationRecord
       target: "room_#{room&.id}",
       partial: 'messages/message',
       locals: {
-        message: self
+        message: self,
+        user: Current.user
       }
     )
 
@@ -39,7 +40,8 @@ class Message < ApplicationRecord
       target: self,
       partial: 'messages/message',
       locals: {
-        message: self
+        message: self,
+        user: Current.user
       }
     )
 
