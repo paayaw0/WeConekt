@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: %i[show destroy]
   before_action :activate_room_chat_lock_authentication!, only: %i[show]
+  before_action :set_room, only: %i[destroy]
 
   def index
     @rooms = current_user.rooms
@@ -40,9 +40,9 @@ class RoomsController < ApplicationController
   end
 
   def activate_room_chat_lock_authentication!
+    set_room
     room_config = RoomConfiguration.find_by(room: @room, user: current_user)
-    return unless room_config
-    return unless room_config.chat_locked? && room_config.chat_lock_token.nil?
+    return unless room_config&.chat_locked? && room_config&.chat_lock_token.nil?
 
     flash[:error] = 'You must sign in first'
     session.clear
