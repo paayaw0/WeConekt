@@ -13,10 +13,13 @@ Rails.application.routes.draw do
   resources :sessions, only: [:create]
 
   resources :rooms
+
   get '/set_disappearing_messages/:room_id', to: 'room_configurations#set_disappearing_messages',
                                              as: :set_disappearing_messages
   post '/enable_disappearing_messages', to: 'room_configurations#enable_disappearing_messages',
                                         as: :enable_disappearing_messages
+  get '/lock_chat/:room_id', to: 'room_configurations#lock_chat', as: :lock_chat
+  post '/configure_chat_lock', to: 'room_configurations#configure_chat_lock', as: :configure_chat_lock
 
   post '/leave_room', to: 'rooms#leave'
   post '/join_room', to: 'rooms#join'

@@ -1,1 +1,13 @@
-<div>Chat Lock</div>
+<%= turbo_frame_tag [:chat_lock, room.id] do %>
+    <div>Chat Lock</div>
+    <div>
+        <strong>
+            <%= link_to lock_chat_url(room) do %>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                    <label><%= !selected_lock_option(user.id).zero?  ? 'on' : 'off' %></label>
+                </div>
+            <% end %>    
+        </strong>
+    </div>
+<% end %>    

@@ -1,0 +1,12 @@
+<%= turbo_frame_tag [:chat_lock, @room.id] do %>
+    <%= form_with(model: @room_configuration, url: configure_chat_lock_url, method: :post) do |form| %>
+        <%= form.hidden_field :room_id, value: @room.id %>
+        <%= form.hidden_field :user_id, value: current_user.id %>
+        <div class="radio-buttons">
+            <%= form.collection_radio_buttons :chat_locked, [[1, 'lock'], [0, 'unlock']], :first, :last, { checked: selected_lock_option(current_user.id)  } do |b| %>
+                <%= b.label(:"data-value" => b.value, style: 'display: block;') { b.radio_button + b.text } %>
+            <% end %>
+        </div>
+        <%= form.submit "Configure Lock", class: "btn btn-rounded btn-sm btn-default" %>
+    <% end %>
+<% end %>
