@@ -9,7 +9,7 @@ class RoomLockAuthenticationService < ApplicationService
   end
 
   def call
-    return unless room_config.chat_locked?
+    return unless room_config&.chat_locked?
     return unless re_authenticate
 
     room_config.update(chat_lock_token: nil, chat_locked: true)

@@ -21,8 +21,9 @@
                 <div class="pull-right display-message display-message-none-<%= message.delete_for_current_user_id %>"
                     style="margin-bottom: 20px;">
                     <%= render 'users/toggle_edit_delete_action', message: message %>
-                    <%= link_to 'Copy', '#', data: { controller: 'clipboard', action: 'clipboard#copy' } %>
-                    
+                    <span style="margin-left: -26%;">
+                      <%= link_to 'Copy', '#', data: { controller: 'clipboard', action: 'clipboard#copy' } %>
+                    </span>
                     <%= turbo_frame_tag "shared_message_form" do %>
                       <%= link_to 'Share', new_shared_message_url(message_id: message.id) %>
                     <% end %>
@@ -56,8 +57,9 @@
                 <div class="pull-right display-message display-message-none-<%= message.delete_for_current_user_id %>"
                     style="margin-bottom: 20px;">
                     <%= render 'users/toggle_edit_delete_action', message: message %>
-                    <%= link_to 'Copy', '#', data: { controller: 'clipboard', action: 'clipboard#copy' } %>
-                    
+                    <span style="margin-left: -26%;">
+                      <%= link_to 'Copy', '#', data: { controller: 'clipboard', action: 'clipboard#copy' } %>
+                    </span>                  
                     <%= turbo_frame_tag "shared_message_form" do %>
                       <%= link_to 'Share', new_shared_message_url(message_id: message.id) %>
                     <% end %>
