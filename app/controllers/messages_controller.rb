@@ -36,7 +36,8 @@ class MessagesController < ApplicationController
       target: message,
       partial: 'messages/message',
       locals: {
-        message:
+        message:,
+        user: current_user
       }
     )
   end

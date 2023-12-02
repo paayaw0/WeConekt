@@ -29,7 +29,8 @@ class Message < ApplicationRecord
       target: "toggle_delete_#{id}",
       partial: 'users/toggle_edit_delete_action',
       locals: {
-        message: self
+        message: self,
+        user: Current.user
       }
     )
   }, unless: proc { |message| message.copy == true }
@@ -50,7 +51,8 @@ class Message < ApplicationRecord
       target: "toggle_delete_#{id}",
       partial: 'users/toggle_edit_delete_action',
       locals: {
-        message: self
+        message: self,
+        user: Current.user
       }
     )
   }
@@ -71,6 +73,8 @@ class Message < ApplicationRecord
   end
 
   def able_to_edit?
+    return false if user_id != Current.user
+    
     (created_at + EDIT_OR_DELETE_TIME_WINDOW) > DateTime.now
   end
 
@@ -95,6 +99,6 @@ class Message < ApplicationRecord
   end
 
   def deleted?
-    delete_for_everyone
+    delete_for_everyone || delete_for_current_user_id
   end
 end
