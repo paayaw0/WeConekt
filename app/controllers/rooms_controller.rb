@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
   before_action :activate_room_chat_lock_authentication!, only: %i[show]
-  before_action :set_room, only: %i[destroy]
+  before_action :set_room, only: %i[show join destroy]
 
   def index
     @rooms = current_user.rooms
@@ -8,12 +8,10 @@ class RoomsController < ApplicationController
 
   def show
     @users = @room.users
-    set_current_room(@room)
   end
 
   def join
     @room = Room.find_by(id: params[:room_id])
-    set_current_room(@room)
 
     redirect_to room_path(@room)
   end
@@ -37,6 +35,7 @@ class RoomsController < ApplicationController
 
   def set_room
     @room = Room.find_by(id: params[:id])
+    set_current_room(@room)
   end
 
   def activate_room_chat_lock_authentication!
@@ -45,7 +44,6 @@ class RoomsController < ApplicationController
     return unless room_config&.chat_locked? && room_config&.chat_lock_token.nil?
 
     flash[:error] = 'You must sign in first'
-    session.clear
     redirect_to login_path(
       redirect_uri: room_url(@room)
     )

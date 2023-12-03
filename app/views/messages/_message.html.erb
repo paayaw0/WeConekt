@@ -16,7 +16,7 @@
                     <% end %>
                     </div>
                 </div>
-                <small class="text-muted"><i class="fa fa-ok text-success"></i><%= edit_timestamp(message, current_user) %> <%= render 'shared/timestamp', model_instance: message, timestamp_field: :created_at %></small>
+                <small class="text-muted"><i class="fa fa-ok text-success"></i><%= edit_timestamp(message) %> <%= render 'shared/timestamp', model_instance: message, timestamp_field: :created_at %></small>
             <% unless message.deleted? %>
                 <div class="pull-right"
                     style="margin-bottom: 20px;">
@@ -54,7 +54,7 @@
                     <% end %>
                     </div>
                 </div>
-                <small class="text-muted"><i class="fa fa-ok text-success"></i><%= edit_timestamp(message, current_user) %> <%= render 'shared/timestamp', model_instance: message, timestamp_field: :created_at %></small>
+                <small class="text-muted"><i class="fa fa-ok text-success"></i><%= edit_timestamp(message) %> <%= render 'shared/timestamp', model_instance: message, timestamp_field: :created_at %></small>
             <% unless message.deleted? %>
                 <div class="pull-right display-message-none-<%= message&.delete_for_current_user_id %>"
                     style="margin-bottom: 20px;">
