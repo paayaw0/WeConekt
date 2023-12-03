@@ -10,8 +10,7 @@ class SharedMessage < ApplicationRecord
       target: message,
       partial: 'messages/message',
       locals: {
-        message:,
-        user: Current.user
+        message:
       }
     )
 
@@ -23,8 +22,7 @@ class SharedMessage < ApplicationRecord
         target: "room_#{room&.id}",
         partial: 'messages/message',
         locals: {
-          message: message_copy,
-          user: Current.user
+          message: message_copy
         }
       )
     end

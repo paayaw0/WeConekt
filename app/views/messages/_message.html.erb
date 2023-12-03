@@ -11,19 +11,16 @@
                      <% if message.delete_for_everyone? %>
                        <p class="m-b-none">deleted</p>
                      <% else %>
-                       <% if message.delete_for_current_user_id == user.id %>
-                          <p>deleted </p>
-                        <% else %>  
-                          <p><%= message.text %> </p>
-                        <% end %>  
+                       <p class="display-none display-<%= message&.delete_for_current_user_id %>">deleted</p>
+                       <p class="display-message-none-<%= message&.delete_for_current_user_id %>"><%= message.text %> </p>  
                     <% end %>
                     </div>
                 </div>
-                <small class="text-muted"><i class="fa fa-ok text-success"></i><%= edit_timestamp(message) %> <%= render 'shared/timestamp', model_instance: message, timestamp_field: :created_at %></small>
+                <small class="text-muted"><i class="fa fa-ok text-success"></i><%= edit_timestamp(message, current_user) %> <%= render 'shared/timestamp', model_instance: message, timestamp_field: :created_at %></small>
             <% unless message.deleted? %>
                 <div class="pull-right"
                     style="margin-bottom: 20px;">
-                    <%= render 'users/toggle_edit_delete_action', message: message, user: user %>
+                    <%= render 'users/toggle_edit_delete_action', message: message %>
                     <span style="margin-left: -26%;">
                       <%= link_to 'Copy', '#', data: { controller: 'clipboard', action: 'clipboard#copy' } %>
                     </span>
@@ -49,20 +46,19 @@
                     <div class="panel-body">
                       <% if message.delete_for_everyone? %>
                        <p class="m-b-none">deleted</p>
-                     <% else %>
-                       <% if message.delete_for_current_user_id == user.id %>
-                          <p>deleted </p>
-                        <% else %>  
+                     <% elsif message.delete_for_current_user_id %>
+                          <p class="display-none display-<%= message&.delete_for_current_user_id %>">deleted</p>
+                          <p class="display-message-none-<%= message.delete_for_current_user_id %>"><%= message.text %> </p>
+                     <% else %>     
                           <p><%= message.text %> </p>
-                        <% end %>  
                     <% end %>
                     </div>
                 </div>
-                <small class="text-muted"><i class="fa fa-ok text-success"></i><%= edit_timestamp(message) %> <%= render 'shared/timestamp', model_instance: message, timestamp_field: :created_at %></small>
+                <small class="text-muted"><i class="fa fa-ok text-success"></i><%= edit_timestamp(message, current_user) %> <%= render 'shared/timestamp', model_instance: message, timestamp_field: :created_at %></small>
             <% unless message.deleted? %>
-                <div class="pull-right"
+                <div class="pull-right display-message-none-<%= message&.delete_for_current_user_id %>"
                     style="margin-bottom: 20px;">
-                    <%= render 'users/toggle_edit_delete_action', message: message, user: user %>
+                    <%= render 'users/toggle_edit_delete_action', message: message %>
                     <span style="margin-left: -26%;">
                       <%= link_to 'Copy', '#', data: { controller: 'clipboard', action: 'clipboard#copy' } %>
                     </span>                  

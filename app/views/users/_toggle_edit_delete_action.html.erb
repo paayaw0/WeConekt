@@ -1,7 +1,8 @@
-<% if message.user_id == user.id %>
-  <span style="position: absolute;
+<% if message.able_to_edit? %>
+  <span class="display-none display-<%= message&.user_id %>"
+        style="position: absolute;
               margin-left: -25%;">
-  <%= link_to 'Edit', edit_message_url(message) if message.able_to_edit? %>
+  <%= link_to 'Edit', edit_message_url(message) %>
   </span>  
 <% end %>
 

@@ -1,7 +1,7 @@
 <%= turbo_frame_tag 'delete_message_options' do %>
   <%= form_with(model: @message, url: message_url(@message), method: :delete) do |form| %>
     <span class="list-group-item">
-      <% if @message.user_id == current_user.id %>
+      <% if @message.user_id == current_user.id && @message.is_original? %>
         <%= form.check_box :delete_for_everyone %>
         <%= form.label :delete_for_everyone, 'delete for everyone' %>
         <br>
