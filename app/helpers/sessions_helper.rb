@@ -1,5 +1,6 @@
 module SessionsHelper
   def login_user(user)
+    reset_session
     session[:user_id] = user.id
     user.last_logged_in_at = DateTime.now
     user.save(validate: false)
