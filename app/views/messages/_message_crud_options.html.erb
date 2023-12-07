@@ -1,0 +1,25 @@
+<% unless message.deleted? %>
+    <div class="pull-right display-message-none-<%= message&.delete_for_current_user_id %>">
+        <% if message.able_to_edit? %>
+              <span class="display-none display-<%= message&.user_id %>">
+                    <%= link_to 'Edit', edit_message_url(message) %>
+              </span>  
+        <% end %>
+
+        <%= turbo_frame_tag 'delete_message_options' do %>
+            <% unless message.deleted? %>
+                <span>
+                <%= link_to 'Delete',  delete_message_options_url(message_id: message.id ) %>
+                </span>  
+            <% end %>  
+        <% end %>
+
+        <span>
+            <%= link_to 'Copy', '#', data: { controller: 'clipboard', action: 'clipboard#copy' } %>
+        </span>
+        <%= turbo_frame_tag "shared_message_form" do %>
+            <%= link_to 'Share', new_shared_message_url(message_id: message.id) %>
+        <% end %>
+        <%= link_to 'Cancel', cancel_url(message_id: message.id), data: { turbo_method: :post }  %>
+    </div>
+<% end %>    

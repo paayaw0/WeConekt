@@ -29,6 +29,10 @@
     }
 
     <%= ".display-#{current_user&.id}" %> {
+      display: inline-block;
+    }
+
+    <%= ".display-shared-message-#{current_user&.id}" %> {
       display: block;
     }
 

@@ -1,13 +1,15 @@
 <%= turbo_frame_tag(message) do %>
     <% if message.is_copy?%>
 
-     <span class="display-none display-<%= message&.copied_to %>">
+     <span class="display-none display-shared-message-<%= message&.copied_to %>">
        <article class="chat-item right">
             <section class="chat-body"
                             style="min-width: 10% !important;">
                 <div class="panel b-light text-sm m-b-none">
                     <div class="panel-body">
+                    <% unless message.delete_for_everyone? || message.delete_for_current_user_id %>
                       <i>shared</i>
+                    <% end %>  
                      <% if message.delete_for_everyone? %>
                        <p class="m-b-none">deleted</p>
                      <% else %>
@@ -17,19 +19,7 @@
                     </div>
                 </div>
                 <small class="text-muted"><i class="fa fa-ok text-success"></i><%= edit_timestamp(message) %> <%= render 'shared/timestamp', model_instance: message, timestamp_field: :created_at %></small>
-            <% unless message.deleted? %>
-                <div class="pull-right"
-                    style="margin-bottom: 20px;">
-                    <%= render 'users/toggle_edit_delete_action', message: message %>
-                    <span style="margin-left: -26%;">
-                      <%= link_to 'Copy', '#', data: { controller: 'clipboard', action: 'clipboard#copy' } %>
-                    </span>
-                    <%= turbo_frame_tag "shared_message_form" do %>
-                      <%= link_to 'Share', new_shared_message_url(message_id: message.id) %>
-                    <% end %>
-                    <%= link_to 'Cancel', cancel_url(message_id: message.id), data: { turbo_method: :post }  %>
-                </div>
-            <% end %>    
+                <%= render 'messages/message_crud_options', message: message %>
             </section>
         <div>
         </article>
@@ -55,19 +45,7 @@
                     </div>
                 </div>
                 <small class="text-muted"><i class="fa fa-ok text-success"></i><%= edit_timestamp(message) %> <%= render 'shared/timestamp', model_instance: message, timestamp_field: :created_at %></small>
-            <% unless message.deleted? %>
-                <div class="pull-right display-message-none-<%= message&.delete_for_current_user_id %>"
-                    style="margin-bottom: 20px;">
-                    <%= render 'users/toggle_edit_delete_action', message: message %>
-                    <span style="margin-left: -26%;">
-                      <%= link_to 'Copy', '#', data: { controller: 'clipboard', action: 'clipboard#copy' } %>
-                    </span>                  
-                    <%= turbo_frame_tag "shared_message_form" do %>
-                      <%= link_to 'Share', new_shared_message_url(message_id: message.id) %>
-                    <% end %>
-                    <%= link_to 'Cancel', cancel_url(message_id: message.id), data: { turbo_method: :post }  %>
-                </div>
-            <% end %>
+                <%= render 'messages/message_crud_options', message: message %>
             </section>
         <div>
         </article>
