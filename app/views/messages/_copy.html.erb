@@ -1,0 +1,23 @@
+<span class="display-none display-shared-message-<%= message&.copied_to %>">
+    <article class="chat-item right">
+        <section class="chat-body"
+                        style="min-width: 10% !important;">
+            <div class="panel b-light text-sm m-b-none">
+                <div class="panel-body">
+                    <% unless message.delete_for_everyone? || message.delete_for_current_user_id %>
+                        <i>shared</i>
+                    <% end %>  
+                    <% if message.delete_for_everyone? %>
+                        <p class="m-b-none">deleted</p>
+                    <% else %>
+                        <p class="display-none display-<%= message&.delete_for_current_user_id %>">deleted</p>
+                        <p class="display-message-none-<%= message&.delete_for_current_user_id %>"><%= message.text %> </p>  
+                    <% end %>
+                </div>
+            </div>
+            <small class="text-muted"><i class="fa fa-ok text-success"></i><%= edit_timestamp(message) %> <%= render 'shared/timestamp', model_instance: message, timestamp_field: :created_at %></small>
+            <%= render 'messages/message_crud_options', message: message %>
+        </section>
+    <div>
+    </article>
+</span>    
