@@ -24,20 +24,7 @@
                                 </section>
                             </section>
                             <footer class="footer bg-light lt b-t b-light">
-                                <%= form_with(url: user_messages_path(user_id: current_user.id), 
-                                            method: :post, 
-                                            class: 'm-t-sm',
-                                            data: { controller: 'clear-form',
-                                                    action: 'turbo:submit-end->clear-form#clear' }) do |form| %>
-                                <div class="input-group">
-                                    <%= form.text_field :text, placeholder: 'Say Something', class: 'form-control input-sm rounded' %>
-                                    <%= form.hidden_field :room_id, value: @room.id %>
-                                    <%= form.hidden_field :user_id, value: current_user.id %>
-                                    <span class="input-group-btn">
-                                    <%= form.submit 'Send', class: 'btn btn-sm btn-dark font-bold btn-rounded' %>
-                                    </span>  
-                                </div>
-                                <% end %>                                               
+                                <%= render 'rooms/send_message', user: current_user, room: @room %>                                               
                             </footer>
                         </section>
                     </section>
