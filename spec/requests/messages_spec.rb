@@ -5,7 +5,7 @@ RSpec.describe 'Messages', type: :request do
   let!(:target_user) { create(:user, email: 'target@gmail.com') }
   let!(:room) do
     build(:room, name: "#{target_user&.username}-#{pinger&.username} #{rand(100)}",
-                  room_type: 0)
+                 room_type: 0)
   end
   let!(:pinger_connection) do
     build(:connection, user_id: pinger.id,
@@ -71,10 +71,28 @@ RSpec.describe 'Messages', type: :request do
                        text: 'Old Text')
     end
 
-    it 'can delete message' do
-      expect{ 
-        delete "/messages/#{message.id}"
-      }.to change(Message, :count).by(-1)
+    let!(:params) do
+      {
+        message:
+        {
+          delete_for_everyone: '1'
+        }
+      }
+    end
+
+    context 'can delete message' do
+      it 'for everyone by redacting text' do
+        delete("/messages/#{message.id}", params:)
+
+        expect(message.reload.redacted?).to eq(true)
+      end
+
+      it 'for everyone by updating column to true' do
+        expect do
+          delete("/messages/#{message.id}", params:)
+          message.reload
+        end.to change { message.delete_for_everyone }.to(true)
+      end
     end
   end
 end

@@ -20,7 +20,7 @@ class MessagesController < ApplicationController
       redacted_text = @message.text.gsub(/./, '*')
       @message.update(text: redacted_text, delete_for_everyone: true) # redacts text for object globally
     elsif delete_options_params[:delete_for_current_user_id] == '1'
-      @message.update(delete_for_current_user_id: current_user.id) # used to redact text in views
+      @message.update(delete_for_current_user_id: current_user.id)
     end
   end
 

@@ -101,4 +101,8 @@ class Message < ApplicationRecord
   def author
     user
   end
+
+  def redacted?
+    text == '*' * text.length
+  end
 end
