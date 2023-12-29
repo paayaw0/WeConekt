@@ -12,6 +12,8 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    
+    @user.last_logged_in_at = DateTime.now
 
     if @user.save
       login_user(@user)
