@@ -1,5 +1,9 @@
-<% if @users.any? %>
-  <%= render 'users'  %>
-<% else %>
-  <h4><%= link_to current_user&.username, current_user %>, no one available to connect with :( ...</h4>
+<%= turbo_stream_from "available_users" %>
+<%= turbo_frame_tag 'users_to_connect_with' do %>
+
+  <%= turbo_frame_tag 'greeting_line' do %>
+    <%= render 'users/greeting_text', users: @users %>
+  <% end %>
+  
+  <%= render 'users' %> 
 <% end %>
