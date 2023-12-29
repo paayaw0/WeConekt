@@ -37,6 +37,27 @@ class User < ApplicationRecord
     end
   }
 
+  after_create_commit lambda {
+    broadcast_append_to(
+      [:available_users],
+      target: 'users_to_connect_with',
+      partial: 'users/user',
+      locals: {
+        user: self,
+        current_user: self
+      }
+    )
+
+    broadcast_replace_to(
+      [:available_users],
+      target: 'greeting_line',
+      partial: 'users/greeting_text',
+      locals: {
+        users: User.ids - [self.id]
+      }
+    )
+  }
+
   def has_connected_with?(user)
     rooms = connections.pluck(:room_id)
     Connection.where(room_id: [rooms], user_id: user.id).any?
